@@ -5,12 +5,13 @@ type TilePatternProps = {
   pattern: string;
   onPatternChange: (pattern: string) => void;
 };
-    
+
 export default function TilePattern({
   color1,
   color2,
   pattern,
-  onPatternChange,
+  //一時的に使わないのでコメントアウト
+  // onPatternChange,
 }: TilePatternProps) {
   return (
     <div className="w-full aspect-square bg-blue-400 flex items-center justify-center flex-col">

@@ -1,6 +1,5 @@
 // components/Menu.tsx
 import { Dispatch, SetStateAction } from "react";
-import Canvas from "./Canvas";
 import TilePattern from "./TilePattern";
 import ColorPicker from "./ColorPicker";
 
@@ -19,7 +18,8 @@ type MenuProps = {
 };
 
 export default function Menu({
-  patternAndColorMode,
+  //一時的に使わないのでコメントアウト
+  // patternAndColorMode,
   setPatternAndColorMode,
   color1,
   onColorChange1,
