@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
+import PatternCanvas from "./components/PatternCanvas";
 // import ColorPicker from "./ColorPicker";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
@@ -10,6 +11,7 @@ export default function App() {
   const [stateCanvas, setStateCanvas] = useState("Static");
   const [menuOpend, setMenuOpend] = useState(false);
   const [titleColor, setTitleColor] = useState(0);
+  const [pattern, setPattern] = useState("stripes"); // 選択された模様
 
   
   // const [patternAndColorMode, setPatternAndColorMode] = useState("Floor1");
@@ -64,6 +66,8 @@ export default function App() {
                 onColorChange1={(color) => handleColorChange("color1", color)}
                 color2={colors[patternAndColorMode].color2}
                 onColorChange2={(color) => handleColorChange("color2", color)}
+                stateCanvas={stateCanvas} // 追加
+                setStateCanvas={setStateCanvas} // 追加
               />
             </div>
           )}
