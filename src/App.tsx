@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
+// import TilePattern from "./components/TilePattern";
 // import ColorPicker from "./ColorPicker";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
@@ -10,7 +11,6 @@ export default function App() {
   const [stateCanvas, setStateCanvas] = useState("Static");
   const [menuOpend, setMenuOpend] = useState(false);
   const [titleColor, setTitleColor] = useState(0);
-
   
   // const [patternAndColorMode, setPatternAndColorMode] = useState("Floor1");
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
@@ -27,6 +27,23 @@ export default function App() {
       [patternAndColorMode]: {
         ...prevColors[patternAndColorMode],
         [key]: color,
+      },
+    }));
+  };
+
+  const [patterns, setPatterns] = useState({
+    Floor1: { pattern: "star" },
+    Floor2: { pattern: "star" },
+    Ceil1: { pattern: "nomal"},
+    Ceil2: { pattern: "nomal"},
+  });
+  // patternが変更されたときに状態を更新する関数
+  const handlePatternChange = (key: string, pattern: string) => {
+    setPatterns((prevPattern) => ({
+      ...prevPattern,
+      [patternAndColorMode]: {
+        ...prevPattern[patternAndColorMode],
+        [key]: pattern,
       },
     }));
   };
@@ -51,12 +68,6 @@ export default function App() {
 
           {menuOpend && (
             <div>
-              {/* <Menu
-                patternAndColorMode={patternAndColorMode}
-                setPatternAndColorMode={setPatternAndColorMode}
-                color1={color}
-                onColorChange={handleColorChange}
-              /> */}
               <Menu
                 patternAndColorMode={patternAndColorMode}
                 setPatternAndColorMode={setPatternAndColorMode}
@@ -64,6 +75,8 @@ export default function App() {
                 onColorChange1={(color) => handleColorChange("color1", color)}
                 color2={colors[patternAndColorMode].color2}
                 onColorChange2={(color) => handleColorChange("color2", color)}
+                pattern={patterns[patternAndColorMode].pattern}
+                onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
               />
             </div>
           )}
