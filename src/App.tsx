@@ -59,8 +59,8 @@ export default function App() {
         <div className="flex flex-col">
         <div>
           <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
+          <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
           <button onClick={() => setStateCanvas("Dynamic")} className="mx-2">Dynamic</button>
-          <button onClick={() => setStateCanvas("Polyhedron")} className="mx-2">Polyhedron</button>
         </div>
           <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
             setting
