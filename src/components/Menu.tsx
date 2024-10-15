@@ -1,7 +1,7 @@
 // components/Menu.tsx
 import { Dispatch, SetStateAction } from "react";
-// import Canvas from "./Canvas";
-import PatternCanvas from "./PatternCanvas"; // PatternCanvasに変更
+import Canvas from "./Canvas";
+import TilePattern from "./TilePattern";
 import ColorPicker from "./ColorPicker";
 
 
@@ -14,8 +14,8 @@ type MenuProps = {
   onColorChange1: (color: string) => void;
   color2: string;
   onColorChange2: (color: string) => void;
-  stateCanvas: string;
-  setStateCanvas: (mode: string) => void;
+  pattern: string;
+  onPatternChange: (mode: string) => void;
 };
 
 export default function Menu({
@@ -25,8 +25,8 @@ export default function Menu({
   onColorChange1,
   color2,
   onColorChange2,
-  stateCanvas,
-  setStateCanvas,
+  pattern,
+  onPatternChange
 }: MenuProps) {
   return (
     <div className="flex">
@@ -38,11 +38,11 @@ export default function Menu({
       </div>
       <div className="flex flex-col">
         {/* <Canvas stateCanvas={stateCanvas} setStateCanvas={setStateCanvas} /> */}
-        <PatternCanvas
+        <TilePattern
           color1={color1}
           color2={color2}
           pattern={pattern}
-          onPatternSelect={setPattern}
+          onPatternChange={onPatternChange}
         />
         <div className="flex">
             <ColorPicker color={color1} onColorChange={onColorChange1} />
