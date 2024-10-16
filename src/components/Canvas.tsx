@@ -33,20 +33,21 @@ type CanvasProps = {
 export default function Canvas({ stateCanvas, patterns, colors }: CanvasProps) {
   return (
     <div className="w-2/5 aspect-square bg-blue-100 flex items-center justify-center flex-col">
-      <div className="text-xl">
-        {(stateCanvas === "Static") && (
+      {(stateCanvas === "Static") && (
+        <div className="w-96 h-96">
           <DrawStatic
             patterns={patterns}
             colors={colors}
           />
-        )}
-        {(stateCanvas === "Linear") && (
-          <p>linear</p>
-        )}
-        {(stateCanvas === "Dynamic") && (
-          <p>dynamic</p>
-        )}
-      </div>
+        </div>
+        
+      )}
+      {(stateCanvas === "Linear") && (
+        <p>linear</p>
+      )}
+      {(stateCanvas === "Dynamic") && (
+        <p>dynamic</p>
+      )}
     </div>
   );
 }
