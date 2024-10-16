@@ -1,4 +1,3 @@
-// components/ColorPicker.tsx
 import { useRef } from "react";
 
 type ColorPickerProps = {
@@ -19,7 +18,7 @@ export default function ColorPicker({ color, onColorChange }: ColorPickerProps) 
 
   return (
     <div className="relative">
-      {/* カスタム円形ボタン */}
+      {/* 円形ボタン */}
       <div
         className="h-14 w-14 rounded-full border-4 border-white cursor-pointer"
         style={{ backgroundColor: color }}
