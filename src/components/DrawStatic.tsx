@@ -45,7 +45,7 @@ export default function DrawStatic({ /*patterns,*/ colors }: DrawStaticProps) {
 
     let yFloor = 400;
     let yCeil = -yFloor;
-    let zsc = 200;
+    let zsc = 300;
     let r = 500;
     let zeros = [0, 0, 0];
     let Vdsee = zeros.slice();
@@ -317,7 +317,7 @@ export default function DrawStatic({ /*patterns,*/ colors }: DrawStaticProps) {
 
   return (
     // <div className="w-2/5 aspect-square bg-blue-400 flex items-center justify-center flex-col">
-      <canvas ref={canvasRef} className="w-full aspect-square"></canvas>
+      <canvas width="420" height="420" ref={canvasRef}></canvas>
     // </div>
   );
 }
