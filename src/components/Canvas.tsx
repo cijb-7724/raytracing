@@ -1,3 +1,5 @@
+import DrawStatic from "./DrawStatic";
+
 // 型定義
 type Pattern = {
   pattern: string;
@@ -30,33 +32,20 @@ type CanvasProps = {
 
 export default function Canvas({ stateCanvas, patterns, colors }: CanvasProps) {
   return (
-    <div className="w-2/5 aspect-square bg-blue-400 flex items-center justify-center flex-col">
-      <div className="text-xl text-white">
-        <p>Current Mode: {stateCanvas}</p>
-
-        {/* patternsの内容を全て表示 */}
-        <div className="mt-4">
-          <h2 className="text-lg">Patterns:</h2>
-          <ul>
-            {Object.entries(patterns).map(([key, value]) => (
-              <li key={key}>
-                {key}: {value.pattern}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* colorsの内容を全て表示 */}
-        <div className="mt-4">
-          <h2 className="text-lg">Colors:</h2>
-          <ul>
-            {Object.entries(colors).map(([key, value]) => (
-              <li key={key}>
-                {key}: color1 = {value.color1}, color2 = {value.color2}
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="w-2/5 aspect-square bg-blue-100 flex items-center justify-center flex-col">
+      <div className="text-xl">
+        {(stateCanvas === "Static") && (
+          <DrawStatic
+            patterns={patterns}
+            colors={colors}
+          />
+        )}
+        {(stateCanvas === "Linear") && (
+          <p>linear</p>
+        )}
+        {(stateCanvas === "Dynamic") && (
+          <p>dynamic</p>
+        )}
       </div>
     </div>
   );
