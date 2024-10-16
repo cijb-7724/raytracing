@@ -67,18 +67,16 @@ export default function App() {
           </button>
 
           {menuOpend && (
-            <div>
-              <Menu
-                patternAndColorMode={patternAndColorMode}
-                setPatternAndColorMode={setPatternAndColorMode}
-                color1={colors[patternAndColorMode].color1}
-                onColorChange1={(color) => handleColorChange("color1", color)}
-                color2={colors[patternAndColorMode].color2}
-                onColorChange2={(color) => handleColorChange("color2", color)}
-                pattern={patterns[patternAndColorMode].pattern}
-                onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
-              />
-            </div>
+            <Menu
+              patternAndColorMode={patternAndColorMode}
+              setPatternAndColorMode={setPatternAndColorMode}
+              color1={colors[patternAndColorMode].color1}
+              onColorChange1={(color) => handleColorChange("color1", color)}
+              color2={colors[patternAndColorMode].color2}
+              onColorChange2={(color) => handleColorChange("color2", color)}
+              pattern={patterns[patternAndColorMode].pattern}
+              onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
+            />
           )}
         </div>
       </div>
