@@ -1,8 +1,6 @@
-// components/Menu.tsx
 import { Dispatch, SetStateAction } from "react";
 import TilePattern from "./TilePattern";
 import ColorPicker from "./ColorPicker";
-
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 
@@ -18,8 +16,6 @@ type MenuProps = {
 };
 
 export default function Menu({
-  //一時的に使わないのでコメントアウト
-  // patternAndColorMode,
   setPatternAndColorMode,
   color1,
   onColorChange1,
@@ -37,7 +33,6 @@ export default function Menu({
         <button onClick={() => setPatternAndColorMode("Ceil2")}>Ceil 2</button>
       </div>
       <div className="flex flex-col">
-        {/* <Canvas stateCanvas={stateCanvas} setStateCanvas={setStateCanvas} /> */}
         <TilePattern
           color1={color1}
           color2={color2}

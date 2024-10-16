@@ -1,4 +1,7 @@
-// Canvas.tsx
+import { useState } from "react";
+import Modal from "./Modal";
+import DrawTilePattern from "./DrawTitlePattern";
+
 type TilePatternProps = {
   color1: string;
   color2: string;
@@ -10,14 +13,30 @@ export default function TilePattern({
   color1,
   color2,
   pattern,
-  //一時的に使わないのでコメントアウト
-  // onPatternChange,
+  onPatternChange,
 }: TilePatternProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false); // モーダル開閉状態
   return (
-    <div className="w-full aspect-square bg-blue-400 flex items-center justify-center flex-col">
-      <p className="text-xl text-white">c1: {color1}</p>
-      <p className="text-xl text-white">c2: {color2}</p>
-      <p className="text-xl text-white">pt: {pattern}</p>
+    <div>
+      {/* TilePattern をクリックしたときにモーダルを開く */}
+      <div
+        className="w-full aspect-square bg-blue-400 flex items-center justify-center flex-col cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
+        <DrawTilePattern
+          color1={color1}
+          color2={color2}
+          pattern={pattern}
+        />
+      </div>
+
+      {/* モーダルが開いているときに表示 */}
+      {isModalOpen && <Modal
+        color1={color1}
+        color2={color2}
+        onClose={() => setIsModalOpen(false)} 
+        onPatternChange={onPatternChange}
+      />}
     </div>
   );
 }

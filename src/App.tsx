@@ -1,9 +1,6 @@
-// App.tsx
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
-// import TilePattern from "./components/TilePattern";
-// import ColorPicker from "./ColorPicker";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 
@@ -12,7 +9,6 @@ export default function App() {
   const [menuOpend, setMenuOpend] = useState(false);
   const [titleColor, setTitleColor] = useState(0);
   
-  // const [patternAndColorMode, setPatternAndColorMode] = useState("Floor1");
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
   const [colors, setColors] = useState({
     Floor1: { color1: "#ff0000", color2: "#00ff00" },
@@ -54,13 +50,17 @@ export default function App() {
         Study RayTracing
       </p>
       <div className="flex w-full bg-pink-100">
-        <Canvas stateCanvas={stateCanvas} setStateCanvas={setStateCanvas} />
+        <Canvas
+          stateCanvas={stateCanvas}
+          patterns={patterns}
+          colors={colors}
+        />
 
         <div className="flex flex-col">
         <div>
           <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
+          <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
           <button onClick={() => setStateCanvas("Dynamic")} className="mx-2">Dynamic</button>
-          <button onClick={() => setStateCanvas("Polyhedron")} className="mx-2">Polyhedron</button>
         </div>
           <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
             setting
