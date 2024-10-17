@@ -49,7 +49,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="start"
+              pattern="star"
             />
           </div>
           <div onClick={() => {
