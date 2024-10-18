@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
-import { star, nomal } from "./ShapePatterns";
-import { dot, setColor, hexToRgb } from "./Utilty";
+import { dot, setColor, getColorFromPattern } from "./Utilty";
 
-type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 // 型定義
 type Pattern = {
   pattern: string;
@@ -40,21 +38,23 @@ export default function DrawStatic({
   const requestRef = useRef<number>(0); // アニメーション制御用のリファレンス
   let cnt = useRef<number>(0); // アニメーションの状態を保持
   
-  let yFloor = 400;
-  let yCeil = -yFloor;
-  let zsc = 300;
-  let r = 500;
-  let zeros = [0, 0, 0];
-  let Vdsee = zeros.slice();
-  let midC = [0, 0, 1700];
-  let radius = 600;
-  let center = [midC[0], midC[1], midC[2] + radius];
-  let t = 20;
+  const yFloor = 400;
+  const yCeil = -yFloor;
+  const zsc = 300;
+  const zeros = [0, 0, 0];
+  const Vdsee = zeros.slice();
+  const radius = 600;
+  const t = 20;
   const theta = Math.PI * 2 / (t * 10);
+
+  let r = 500;
+  let midC = [0, 0, 1700];
+  let center = [midC[0], midC[1], midC[2] + radius];
   
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
-    const ctx = canvasRef.current?.getContext("2d");
+    // const ctx = canvasRef.current?.getContext("2d");
+    const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
     
     // ctx が null または undefined でないことを確認
     if (ctx) {
@@ -85,7 +85,7 @@ export default function DrawStatic({
     const wx = width / 2;
     const wy = height / 2;
 
-    const image = ctx.getImageData(0, 0, width, height);
+    const image = ctx.getImageData(0, 0, width, height);// here is 87 row
     const pixels = image.data;
 
     for (let i = 0; i < 2 * wy; ++i) for (let j = 0; j < 2 * wx; ++j) {
@@ -139,52 +139,7 @@ export default function DrawStatic({
     ctx.putImageData(image, 0, 0);
   };
 
-  const getColorFromPattern = (
-    floorOrCeil: string,
-    colors: Colors,
-    patterns: Patterns,
-    x: number, 
-    z: number, 
-    refrect: boolean = false
-  ): [number, number, number, number] => {
-    const wid = 400;
-    let alpha = 255;
-    let r = 0, g = 0, b = 0;
-    
-    let nx = Math.abs(x) % wid;
-    let nz = Math.abs(z) % wid;
-    nx -= wid / 2;
-    nz -= wid / 2;
-    let patternMode: PatternMode;
 
-    // xとzのパターンのチェックに基づいてFloor/Ceilの判定
-    const isSurface1 = Math.abs(Math.floor(x / wid) % 2) === Math.abs(Math.floor(z / wid) % 2);
-    // Floor/Ceilの判定をシンプルに
-    patternMode = isSurface1
-      ? (floorOrCeil === "F" ? "Floor1" : "Ceil1")
-      : (floorOrCeil === "F" ? "Floor2" : "Ceil2");
-
-    type ShapeFunction = (w: number, x: number, y: number) => boolean;
-    let isInsidePattern: ShapeFunction;
-
-    if (patterns[patternMode].pattern === "star") {
-      isInsidePattern = star;
-    } else {
-      isInsidePattern = nomal;
-    }
-
-    if (isInsidePattern(wid, nx, nz)) {
-      ({ r, g, b } = hexToRgb(colors[patternMode].color1));
-    } else {
-      ({ r, g, b } = hexToRgb(colors[patternMode].color2));
-    }
-  
-    const d = (x * x + z * z) / 1000000;
-    [r, g, b] = [r, g, b].map(v => Math.min(v, v / d));
-    if (refrect) alpha *= 0.9;
-    return [r, g, b, alpha];
-  };
-  
   // 初回マウント時にアニメーションを開始
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate); // アニメーションを開始
