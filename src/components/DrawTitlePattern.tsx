@@ -17,34 +17,36 @@ export default function DrawTilePattern({
 }: DrawTilePatternProps) {
   const canvasRef_pattern = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
-    if (canvasRef_pattern.current) {
-      const ctx = canvasRef_pattern.current.getContext("2d");
-      if (ctx) {
-        const image = ctx.getImageData(0, 0, width, width);
-        const pixels = image.data;
-
-        type ShapeFunction = (w: number, x: number, y: number) => boolean;
-        let isInsidePattern: ShapeFunction;
-
-        if (pattern === "star") {
-          isInsidePattern = star;
-        } else {
-          isInsidePattern = nomal;
-        }
-
-        let r, g, b;
-        for (let i = 0; i < width; ++i) for (let j = 0; j < width; ++j) {
-          if (isInsidePattern(width, i-width/2, j-width/2)) {
-            ({ r, g, b } = hexToRgb(color1));
-          } else {
-            ({ r, g, b } = hexToRgb(color2));
-          }
-          setColor(pixels, width, i, j, [r, g, b, 255]);
-        }
-        ctx.putImageData(image, 0, 0);
-      }
-    }
+    if (!canvasRef_pattern.current) return;
+    const ctx = canvasRef_pattern.current.getContext("2d");
+    if (!ctx) return;
+    render(ctx);
   }, [color1, color2, pattern, width]);
+
+  const render = (ctx: CanvasRenderingContext2D) => {
+    const image = ctx.getImageData(0, 0, width, width);
+    const pixels = image.data;
+
+    type ShapeFunction = (w: number, x: number, y: number) => boolean;
+    let isInsidePattern: ShapeFunction;
+
+    if (pattern === "star") {
+      isInsidePattern = star;
+    } else {
+      isInsidePattern = nomal;
+    }
+
+    let r, g, b;
+    for (let i = 0; i < width; ++i) for (let j = 0; j < width; ++j) {
+      if (isInsidePattern(width, i-width/2, j-width/2)) {
+        ({ r, g, b } = hexToRgb(color1));
+      } else {
+        ({ r, g, b } = hexToRgb(color2));
+      }
+      setColor(pixels, width, i, j, [r, g, b, 255]);
+    }
+    ctx.putImageData(image, 0, 0);
+  }
 
   return (
       <canvas width={width} height={width} ref={canvasRef_pattern} ></canvas>
