@@ -16,7 +16,6 @@ export default function DrawTilePattern({
   width,
 }: DrawTilePatternProps) {
   const canvasRef_pattern = useRef<HTMLCanvasElement | null>(null);
-  console.log(canvasRef_pattern);
   useEffect(() => {
     if (canvasRef_pattern.current) {
       const ctx = canvasRef_pattern.current.getContext("2d");
@@ -35,9 +34,7 @@ export default function DrawTilePattern({
 
         let r, g, b;
         for (let i = 0; i < width; ++i) for (let j = 0; j < width; ++j) {
-          const x = i - width/2;
-          const y = j - width/2;
-          if (isInsidePattern(width, x, y)) {
+          if (isInsidePattern(width, i-width/2, j-width/2)) {
             ({ r, g, b } = hexToRgb(color1));
           } else {
             ({ r, g, b } = hexToRgb(color2));
@@ -47,15 +44,9 @@ export default function DrawTilePattern({
         ctx.putImageData(image, 0, 0);
       }
     }
-  }, [color1, color2, pattern, width]); // これらの値が変更されたときに再描画
+  }, [color1, color2, pattern, width]);
 
   return (
-    // <div className="w-full aspect-square bg-black flex items-center justify-center flex-col cursor-pointer">
-    //   <p className="text-xl text-red-400">c1: {color1}</p>
-    //   <p className="text-xl text-red-400">c2: {color2}</p>
-    //   <p className="text-xl text-red-400">pt: {pattern}</p>
-    //   <p className="text-xl text-red-400">wid: {width}</p>
-    // </div>
       <canvas width={width} height={width} ref={canvasRef_pattern} ></canvas>
   );
 }
