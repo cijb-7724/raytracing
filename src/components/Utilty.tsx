@@ -50,7 +50,7 @@ export const setColor = (
   j: number,
   color: number[]
 ) => {
-  const base = (i * 2 * w + j) * 4;
+  const base = (i * w + j) * 4;
   for (let k = 0; k < 4; ++k) pixels[base + k] = color[k];
 };
 
@@ -74,6 +74,16 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
   return { r, g, b };
 };
 
+/**
+ * 
+ * @param floorOrCeil :"F" / "C"
+ * @param colors      :各床や天井の色1, 2
+ * @param patterns    :各床や天井の模様
+ * @param x           :空間内で床や天井に光線が到達したx座標
+ * @param z           :空間内で床や天井に光線が到達したz座標
+ * @param refrect     :反射後に到達したらtrue, 直接ならfalse
+ * @returns [r, g, b, alpha]
+ */
 export const getColorFromPattern = (
   floorOrCeil: string,
   colors: Colors,
@@ -116,6 +126,6 @@ export const getColorFromPattern = (
 
   const d = (x * x + z * z) / 1000000;
   [r, g, b] = [r, g, b].map(v => Math.min(v, v / d));
-  if (refrect) alpha *= 0.9;
+  if (refrect) alpha *= 0.85;
   return [r, g, b, alpha];
 };

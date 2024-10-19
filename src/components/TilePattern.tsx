@@ -27,6 +27,7 @@ export default function TilePattern({
           color1={color1}
           color2={color2}
           pattern={pattern}
+          width={100}
         />
       </div>
 

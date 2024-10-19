@@ -1,8 +1,8 @@
 /**
  * 
  * @param _w - 一辺wの正方形内の図形について
- * @param _x - 座標平面上のx座標
- * @param _y - 座標平面上のy座標
+ * @param _x - 座標平面上のx座標 x in [-w/2, w/2]
+ * @param _y - 座標平面上のy座標 y in [-w/2, w/2]
  * @returns 一辺wの正方形内の(x, y)について常にtrue
  */
 export const nomal = (_w: number, _x: number, _y: number): boolean => {
@@ -12,8 +12,8 @@ export const nomal = (_w: number, _x: number, _y: number): boolean => {
 /**
  * 
  * @param w - 一辺wの正方形内の図形について
- * @param x - 座標平面上のx座標
- * @param y - 座標平面上のy座標
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2]
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2]
  * @returns 一辺wの正方形内の(x, y)が星型の内側ならtrue, 外側ならfalse
  */
 export const star = (w: number, x: number, y: number): boolean => {
@@ -24,10 +24,10 @@ export const star = (w: number, x: number, y: number): boolean => {
   const bs = Array(5).fill(0); // 長さ5の配列を初期化
 
   for (let k = 0; k < 5; ++k) {
-    const xp = r * Math.cos(Math.PI / 2 + theta * k);
-    const yp = r * Math.sin(Math.PI / 2 + theta * k);
-    const xq = r * Math.cos(Math.PI / 2 + theta * (k + 1));
-    const yq = r * Math.sin(Math.PI / 2 + theta * (k + 1));
+    const xp = r * Math.cos(Math.PI/2 + theta * k);
+    const yp = r * Math.sin(Math.PI/2 + theta * k);
+    const xq = r * Math.cos(Math.PI/2 + theta * (k + 1));
+    const yq = r * Math.sin(Math.PI/2 + theta * (k + 1));
     const a = (yq - yp) / (xq - xp);
     const b = yp - a * xp; // 直線の傾きと切片を計算
 
