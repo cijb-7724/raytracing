@@ -1,4 +1,9 @@
-import { star, nomal } from "./ShapePatterns";
+import {
+  normal,
+  star,
+  heart,
+  abcd,
+} from "./ShapePatterns";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 // 型定義
@@ -109,14 +114,7 @@ export const getColorFromPattern = (
     ? (floorOrCeil === "F" ? "Floor1" : "Ceil1")
     : (floorOrCeil === "F" ? "Floor2" : "Ceil2");
 
-  type ShapeFunction = (w: number, x: number, y: number) => boolean;
-  let isInsidePattern: ShapeFunction;
-
-  if (patterns[patternMode].pattern === "star") {
-    isInsidePattern = star;
-  } else {
-    isInsidePattern = nomal;
-  }
+  const isInsidePattern = getShapeFunction(patterns[patternMode].pattern);
 
   if (isInsidePattern(wid, nx, nz)) {
     ({ r, g, b } = hexToRgb(colors[patternMode].color1));
@@ -128,4 +126,16 @@ export const getColorFromPattern = (
   [r, g, b] = [r, g, b].map(v => Math.min(v, v / d));
   if (refrect) alpha *= 0.85;
   return [r, g, b, alpha];
+};
+
+type ShapeFunction = (w: number, x: number, y: number) => boolean;
+export const getShapeFunction = (pattern: string): ShapeFunction => {
+  const patternsFunc: { [key: string]: ShapeFunction } = {
+    star: star,
+    heart: heart,
+    abcd: abcd,
+    default: normal,
+  };
+
+  return patternsFunc[pattern] || patternsFunc.default;
 };
