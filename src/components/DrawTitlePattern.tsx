@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
-import { hexToRgb, setColor } from "./Utilty";
-import { star, nomal } from "./ShapePatterns";
+import { hexToRgb, setColor, getShapeFunction } from "./Utilty";
 
 type DrawTilePatternProps = {
   color1: string;
@@ -27,14 +26,7 @@ export default function DrawTilePattern({
     const image = ctx.getImageData(0, 0, width, width);
     const pixels = image.data;
 
-    type ShapeFunction = (w: number, x: number, y: number) => boolean;
-    let isInsidePattern: ShapeFunction;
-
-    if (pattern === "star") {
-      isInsidePattern = star;
-    } else {
-      isInsidePattern = nomal;
-    }
+    const isInsidePattern = getShapeFunction(pattern);
 
     let r, g, b;
     for (let i = 0; i < width; ++i) for (let j = 0; j < width; ++j) {
