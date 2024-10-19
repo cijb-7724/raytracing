@@ -53,7 +53,6 @@ export default function DrawStatic({
   
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
-    // const ctx = canvasRef.current?.getContext("2d");
     const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
     
     // ctx が null または undefined でないことを確認
@@ -148,12 +147,11 @@ export default function DrawStatic({
 
   // colorsが変わった時に即座に色を反映
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
+    const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
     if (ctx) {
       render(ctx);
     }
-    console.log("aaaaaaaaaaaaaaaaaa");
-  }, [colors]);
+  }, [colors, patterns]);
 
   return (
       <canvas width="250" height="250" ref={canvasRef}
