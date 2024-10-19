@@ -100,11 +100,11 @@ export const getColorFromPattern = (
   const wid = 400;
   let alpha = 255;
   let r = 0, g = 0, b = 0;
-  
-  let nx = Math.abs(x) % wid;
-  let nz = Math.abs(z) % wid;
-  nx -= wid / 2;
-  nz -= wid / 2;
+
+  let nz = ((x%wid) + wid)%wid - wid/2;
+  let nx = ((z%wid) + wid)%wid - wid/2;
+  nx *= -1;
+
   let patternMode: PatternMode;
 
   // xとzのパターンのチェックに基づいてFloor/Ceilの判定
