@@ -101,9 +101,9 @@ export default function DrawStatic({
       if (c1 * c1 - c2 < 0) {
         //直接床/天井にぶつかる
         let t = yFloor / Esee[1];
-        if (t > 0) setColor(pixels, wx, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0], t * Esee[2]));
+        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0], t * Esee[2]));
         t = yCeil / Esee[1];
-        if (t > 0) setColor(pixels, wx, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0], t * Esee[2]));
+        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0], t * Esee[2]));
       } else {
         //球で反射
         let isFloor = false
@@ -124,15 +124,15 @@ export default function DrawStatic({
         }
 
         let s = (yFloor - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, wx, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
         else if (s * Vdsee[1] < 0) isFloor = true;
 
         s = (yCeil - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, wx, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
         else if (s * Vdsee[1] > 0) isCeil = true;
 
-        if (isFloor) setColor(pixels, wx, i, j, getColorFromPattern("F", colors, patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
-        if (isCeil) setColor(pixels, wx, i, j, getColorFromPattern("C", colors, patterns, yCeil/Esee[1]*Esee[0], yCeil/Esee[1] * Esee[2]));
+        if (isFloor) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
+        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil/Esee[1]*Esee[0], yCeil/Esee[1] * Esee[2]));
       }
     }
 
