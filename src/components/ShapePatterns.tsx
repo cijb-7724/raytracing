@@ -5,7 +5,7 @@
  * @param _y - 座標平面上のy座標 y in [-w/2, w/2]
  * @returns 一辺wの正方形内の(x, y)について常にtrue
  */
-export const nomal = (_w: number, _x: number, _y: number): boolean => {
+export const normal = (_w: number, _x: number, _y: number): boolean => {
   return true;
 }
 
@@ -44,4 +44,24 @@ export const star = (w: number, x: number, y: number): boolean => {
 
   return ok;
 };
+
+import { heartShape } from "./pictureHeart";
+export const heart = (w: number, x: number, y: number): boolean => {
+  const wPic = heartShape.length;
+  const nx = Math.floor(wPic/w * (x + w/2));
+  const ny = Math.floor(wPic/w * (y + w/2));
+  if (isNaN(nx) || isNaN(ny)) {
+    console.error("Invalid x or y value", {nx, ny, x, y, w});
+    return false;
+  }
+  return heartShape
+    [Math.floor(wPic/w * (x + w/2))]
+    [Math.floor(wPic/w * (y + w/2))];
+}
+
+export const abcd = (w: number, x: number, y: number): boolean => {
+  return x*x + y*y <= (w/2*0.7)**2;
+}
+
+
 

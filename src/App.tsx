@@ -31,8 +31,8 @@ export default function App() {
   const [patterns, setPatterns] = useState({
     Floor1: { pattern: "star" },
     Floor2: { pattern: "star" },
-    Ceil1: { pattern: "nomal"},
-    Ceil2: { pattern: "nomal"},
+    Ceil1: { pattern: "normal"},
+    Ceil2: { pattern: "normal"},
   });
   // patternが変更されたときに状態を更新する関数
   const handlePatternChange = (key: string, pattern: string) => {

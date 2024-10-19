@@ -33,7 +33,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
 
         <div className="grid grid-cols-2 gap-4">
 
-          {/* nomal tile pattern */}
+          {/* normal tile pattern */}
           <div onClick={() => {
             onClose();
             onPatternChange("normal");
@@ -41,7 +41,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="nomal"
+              pattern="normal"
               width={width}
             />
           </div>
@@ -59,12 +59,12 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           </div>
           <div onClick={() => {
             onClose();
-            onPatternChange("apple");
+            onPatternChange("heart");
           }}>
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="apple"
+              pattern="heart"
               width={width}
             />
           </div>
