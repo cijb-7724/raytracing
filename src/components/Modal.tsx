@@ -14,7 +14,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
       onClose();
     }
   };
-  
+  const width = 100;
   return (
     <div
       id="modal-overlay"
@@ -32,6 +32,8 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
         <h2 className="text-2xl mb-4">Select a Pattern</h2>
 
         <div className="grid grid-cols-2 gap-4">
+
+          {/* nomal tile pattern */}
           <div onClick={() => {
             onClose();
             onPatternChange("normal");
@@ -40,8 +42,10 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
               color1={color1}
               color2={color2}
               pattern="nomal"
+              width={width}
             />
           </div>
+          
           <div onClick={() => {
             onClose();
             onPatternChange("star");
@@ -50,6 +54,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
               color1={color1}
               color2={color2}
               pattern="star"
+              width={width}
             />
           </div>
           <div onClick={() => {
@@ -60,6 +65,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
               color1={color1}
               color2={color2}
               pattern="apple"
+              width={width}
             />
           </div>
           <div onClick={() => {
@@ -70,6 +76,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
               color1={color1}
               color2={color2}
               pattern="abcd"
+              width={width}
             />
           </div>
         </div>
