@@ -31,6 +31,13 @@ type DrawSphereProps = {
   motion: string;
 };
 
+/**
+ * 
+ * @param patterns - 各床や天井の模様.
+ * @param colors - 各床や天井の色.
+ * @param motion - 球の運動の規則.
+ * @returns 球の運動を描画したキャンバスのJSX要素.
+ */
 export default function DrawSphere({
   patterns, 
   colors,
@@ -46,7 +53,7 @@ export default function DrawSphere({
   const zeros = [0, 0, 0];
   const Vdsee = zeros.slice();
   const t = 20;
-  const theta = Math.PI * 2 / (t * 10);
+  const theta = Math.PI*2 / (t*10);
   let r = 0;
   let center = [0, 0, 0];
   let midC = [0, 0, 0];
@@ -59,7 +66,7 @@ export default function DrawSphere({
     midC = [0, 0, 1700];
     center = [midC[0], midC[1], midC[2] + 600];
   }
-  if (motion === "Dynamic") {
+  if (motion === "Gravity") {
   r = 230;    //球の半径
     center = [-300, 200, 1600];
     tx = 17;  //x軸(右)方向の速度
@@ -84,27 +91,33 @@ export default function DrawSphere({
       // 球の位置を更新
       if (motion === "Static") updateCenterPositionStatic();
       if (motion === "Linear") updateCenterPositionLinear();
-      if (motion === "Dynamic") updateCenterPositionDynamic();
+      if (motion === "Gravity") updateCenterPositionGravity();
       render(ctx); // 現在の色で描画
-      cnt.current = (cnt.current + 1) % 600;
+      cnt.current = (cnt.current+1) % 600;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
-
+  
+  /**
+   * Staticな運動の次の球の中心座標と半径を計算.
+   */
   const updateCenterPositionStatic = () => {
-    const switchMode = Math.floor(cnt.current / 300) % 2 === 0;
+    const switchMode = Math.floor(cnt.current/300) % 2 === 0;
     r = switchMode ? 500 : 250;
     midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
 
     const x = center[0] - midC[0];
     const z = center[2] - midC[2];
-    const nx = Math.cos(theta) * x - Math.sin(theta) * z;
-    const nz = Math.sin(theta) * x + Math.cos(theta) * z;
+    const nx = Math.cos(theta)*x - Math.sin(theta)*z;
+    const nz = Math.sin(theta)*x + Math.cos(theta)*z;
 
     center[0] = nx + midC[0];
     center[2] = nz + midC[2];
   };
 
+  /**
+   * Linearな運動の次の球の中心座標を計算.
+   */
   const updateCenterPositionLinear = () => {
     let x, y, z;
     [x, y, z] = center;
@@ -122,7 +135,10 @@ export default function DrawSphere({
     if (y > yFloor - r || y < yCeil + r) ty *= -1;
   };
 
-  const updateCenterPositionDynamic = () => {
+  /**
+   * Gravityな運動の次の球の中心座標を計算.
+   */
+  const updateCenterPositionGravity = () => {
     let x, y, z;
     [x, y, z] = center;
     //速度から位置を更新
@@ -155,12 +171,24 @@ export default function DrawSphere({
     }
     //床に摩擦がある
     //床を転がっているときx, z軸方向の速度を減少させる
-    if (y == yFloor - r && ty === 0 && cnt.current % 10 === 0) {
+    if (y === yFloor - r && ty === 0 && cnt.current % 10 === 0) {
       tx *= 0.9;
       tz *= 0.9;
     }
   };
 
+  /**
+   * 提供されたキャンバスのコンテキストに対してシーンを描画し, 球体からの反射や床・天井との交差を含むレイトレーシングの計算をする
+   *
+   * @param ctx - キャンバスのレンダリングコンテキスト
+   * @returns void
+   *
+   * 関数内で実行される主な操作：
+   * - 光線計算: キャンバスの各ピクセルに対して, ピクセルの位置とカメラの視線ベクトルを使って光線の方向を決定する.
+   * - 交差判定: 光線が床, 天井, 球体と交差するかどうかを計算する.
+   * - 反射処理: 光線が球体に当たった場合, 反射ベクトルを計算し, 新しい方向で床や天井とのさらなる交差を計算する.
+   * - 色付け: 光線が交差した場所や反射したかどうかに基づいてピクセルに色を決定する.
+   */
   const render = (ctx: CanvasRenderingContext2D) => {
     if (!ctx || !canvasRef.current) return;
     const { width, height } = canvasRef.current;
@@ -178,9 +206,9 @@ export default function DrawSphere({
       const Esee = Vsee.map((v) => v / norm);
 
       const c1 = dot(Esee, center);
-      const c2 = dot(center, center) - r * r;
+      const c2 = dot(center, center) - r*r;
 
-      if (c1 * c1 - c2 < 0) {
+      if (c1*c1 - c2 < 0) {
         //直接床/天井にぶつかる
         let t = yFloor / Esee[1];
         if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0], t * Esee[2]));
@@ -190,31 +218,31 @@ export default function DrawSphere({
         //球で反射
         let isFloor = false
         let isCeil = false;
-        let t = c1 - Math.sqrt(c1 * c1 - c2);
-        let n = [...zeros]; // 配列のコピーを作成
+        let t = c1 - Math.sqrt(c1*c1-c2);
+        let n = [...zeros];
         for (let k = 0; k < 3; ++k) {
-          n[k] = t * Esee[k] - center[k];
+          n[k] = t*Esee[k] - center[k];
         }
-        const norm = Math.sqrt(n.reduce((sum, val) => sum + val * val, 0)); // ノルムの計算
+        const norm = Math.sqrt(n.reduce((sum, val) => sum + val*val, 0)); // ノルムの計算
         for (let k = 0; k < 3; ++k) {
           n[k] /= norm;
         }
 
         let coef = -2 * dot(Esee, n);
         for (let k=0; k<3; ++k) {
-          Vdsee[k] = Esee[k] + coef * n[k];
+          Vdsee[k] = Esee[k] + coef*n[k];
         }
 
-        let s = (yFloor - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        let s = (yFloor-t*Esee[1]) / Vdsee[1];
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] < 0) isFloor = true;
 
-        s = (yCeil - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        s = (yCeil-t*Esee[1]) / Vdsee[1];
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] > 0) isCeil = true;
 
         if (isFloor) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
-        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil/Esee[1]*Esee[0], yCeil/Esee[1] * Esee[2]));
+        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil / Esee[1] * Esee[0], yCeil / Esee[1] * Esee[2]));
       }
     }
 

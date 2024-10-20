@@ -5,6 +5,14 @@ type ColorPickerProps = {
   onColorChange: (color: string) => void;
 };
 
+/**
+ * ColorPicker コンポーネント
+ * プリセットの色を選択可能
+ * 
+ * @param color - 現在選択されている色. #RRGGBB形式.
+ * @param onColorChange - 色を変更するために呼び出す関数.
+ * @returns カラーピッカーのJSX要素.
+ */
 export default function ColorPicker({ color, onColorChange }: ColorPickerProps) {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // ポップアップの状態
   const pickerRef = useRef<HTMLDivElement>(null);
