@@ -59,7 +59,7 @@ export default function DrawSphere({
     midC = [0, 0, 1700];
     center = [midC[0], midC[1], midC[2] + 600];
   }
-  if (motion === "Dynamic") {
+  if (motion === "Gravity") {
   r = 230;    //球の半径
     center = [-300, 200, 1600];
     tx = 17;  //x軸(右)方向の速度
@@ -84,7 +84,7 @@ export default function DrawSphere({
       // 球の位置を更新
       if (motion === "Static") updateCenterPositionStatic();
       if (motion === "Linear") updateCenterPositionLinear();
-      if (motion === "Dynamic") updateCenterPositionDynamic();
+      if (motion === "Gravity") updateCenterPositionGravity();
       render(ctx); // 現在の色で描画
       cnt.current = (cnt.current+1) % 600;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
@@ -122,7 +122,7 @@ export default function DrawSphere({
     if (y > yFloor - r || y < yCeil + r) ty *= -1;
   };
 
-  const updateCenterPositionDynamic = () => {
+  const updateCenterPositionGravity = () => {
     let x, y, z;
     [x, y, z] = center;
     //速度から位置を更新

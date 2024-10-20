@@ -60,7 +60,7 @@ export default function App() {
         <div>
           <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
           <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
-          <button onClick={() => setStateCanvas("Dynamic")} className="mx-2">Dynamic</button>
+          <button onClick={() => setStateCanvas("Gravity")} className="mx-2">Gravity</button>
         </div>
           <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
             setting
