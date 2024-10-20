@@ -49,16 +49,17 @@ export const star = (w: number, x: number, y: number): boolean => {
 
 import { heartShape } from "./pictureHeart";
 export const heart = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
   const wPic = heartShape.length;
-  const nx = Math.floor(wPic/w * (x + w/2));
-  const ny = Math.floor(wPic/w * (y + w/2));
-  if (isNaN(nx) || isNaN(ny)) {
-    console.error("Invalid x or y value", {nx, ny, x, y, w});
-    return false;
-  }
-  return heartShape
-    [Math.floor(wPic/w * (x + w/2))]
-    [Math.floor(wPic/w * (y + w/2))];
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return heartShape[nx][ny];
 }
 
 export const abcd = (w: number, x: number, y: number): boolean => {
