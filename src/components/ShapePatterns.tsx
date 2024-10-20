@@ -62,6 +62,111 @@ export const heart = (w: number, x: number, y: number): boolean => {
   return heartShape[nx][ny];
 }
 
+import { diamondShape } from "./pictureDiamond";
+export const diamond = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = diamondShape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return diamondShape[nx][ny];
+}
+
+import { cloverShape } from "./pictureClover";
+export const clover = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = cloverShape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return cloverShape[nx][ny];
+}
+
+import { spadeShape } from "./pictureSpade";
+export const spade = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = spadeShape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return spadeShape[nx][ny];
+}
+
+import { atcoder1Shape } from "./pictureAtcoder1";
+export const atcoder1 = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = atcoder1Shape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return atcoder1Shape[nx][ny];
+}
+
+import { atcoder2Shape } from "./pictureAtcoder2";
+export const atcoder2 = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = atcoder2Shape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return atcoder2Shape[nx][ny];
+}
+
+import { atcoder3Shape } from "./pictureAtcoder3";
+export const atcoder3 = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = atcoder3Shape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return atcoder3Shape[nx][ny];
+}
+
+import { atcoder4Shape } from "./pictureAtcoder4";
+export const atcoder4 = (w: number, x: number, y: number): boolean => {
+  if (isNaN(x) || isNaN(y)) return false;
+
+  const wPic = atcoder4Shape.length;
+  x = Math.max(x, -Math.floor(w/2));
+  x = Math.min(x, Math.floor(w/2)-1);
+  y = Math.max(y, -Math.floor(w/2));
+  y = Math.min(y, Math.floor(w/2)-1);
+  let nx = Math.floor(wPic/w * (x + w/2));
+  let ny = Math.floor(wPic/w * (y + w/2));
+
+  return atcoder4Shape[nx][ny];
+}
+
 export const abcd = (w: number, x: number, y: number): boolean => {
   return x*x + y*y <= (w/2*0.7)**2;
 }
