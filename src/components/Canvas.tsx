@@ -1,4 +1,4 @@
-import DrawStatic from "./DrawStatic";
+import DrawSphere from "./DrawSphere";
 
 // 型定義
 type Pattern = {
@@ -33,18 +33,11 @@ type CanvasProps = {
 export default function Canvas({ stateCanvas, patterns, colors }: CanvasProps) {
   return (
     <div className="w-2/5 aspect-square bg-blue-100 flex items-center justify-center flex-col">
-      {(stateCanvas === "Static") && (
-        <DrawStatic
+      <DrawSphere
           patterns={patterns}
           colors={colors}
+          motion={stateCanvas}
         />
-      )}
-      {(stateCanvas === "Linear") && (
-        <p>linear</p>
-      )}
-      {(stateCanvas === "Dynamic") && (
-        <p>dynamic</p>
-      )}
     </div>
   );
 }

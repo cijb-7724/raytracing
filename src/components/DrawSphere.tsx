@@ -25,31 +25,55 @@ type Colors = {
   Ceil2: ColorPair;
 };
 
-type DrawStaticProps = {
+type DrawSphereProps = {
   patterns: Patterns;
   colors: Colors;
+  motion: string;
 };
 
-export default function DrawStatic({
+export default function DrawSphere({
   patterns, 
-  colors
-}: DrawStaticProps) {
+  colors,
+  motion
+}: DrawSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestRef = useRef<number>(0); // アニメーション制御用のリファレンス
   let cnt = useRef<number>(0); // アニメーションの状態を保持
   
   const yFloor = 400;
   const yCeil = -yFloor;
-  const zsc = 300;
+  const zsc = 230;
   const zeros = [0, 0, 0];
   const Vdsee = zeros.slice();
-  const radius = 600;
   const t = 20;
   const theta = Math.PI * 2 / (t * 10);
+  let r = 0;
+  let center = [0, 0, 0];
+  let midC = [0, 0, 0];
+  let tx: number, ty: number, tz: number, tyv: number;
+  console.log(motion);
 
-  let r = 500;
-  let midC = [0, 0, 1700];
-  let center = [midC[0], midC[1], midC[2] + radius];
+  //球の動かし方ごとに異なる初期値の設定
+  if (motion === "Static") {
+    r = 500;
+    midC = [0, 0, 1700];
+    center = [midC[0], midC[1], midC[2] + 600];
+  }
+  if (motion === "Dynamic") {
+  r = 230;    //球の半径
+    center = [-300, 200, 1600];
+    tx = 17;  //x軸(右)方向の速度
+    ty = -60; //y軸(下)方向の速度
+    tz = 32;  //z軸(奥)方向の速度
+    tyv = 3.2;  //y軸方向の加速度
+  }
+  if (motion === "Linear") {
+    r = 250;  //球の半径
+    center = [-300, 100, 1600];
+    tx = 13;  //x軸(右)方向の速度
+    ty = 8;   //y軸(下)方向の速度
+    tz = -17; //z軸(奥)方向の速度
+  }
   
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
@@ -57,14 +81,17 @@ export default function DrawStatic({
     
     // ctx が null または undefined でないことを確認
     if (ctx) {
-      updateCenterPosition(); // 球の位置を更新
+      // 球の位置を更新
+      if (motion === "Static") updateCenterPositionStatic();
+      if (motion === "Linear") updateCenterPositionLinear();
+      if (motion === "Dynamic") updateCenterPositionDynamic();
       render(ctx); // 現在の色で描画
       cnt.current = (cnt.current + 1) % 600;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
 
-  const updateCenterPosition = () => {
+  const updateCenterPositionStatic = () => {
     const switchMode = Math.floor(cnt.current / 300) % 2 === 0;
     r = switchMode ? 500 : 250;
     midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
@@ -76,6 +103,62 @@ export default function DrawStatic({
 
     center[0] = nx + midC[0];
     center[2] = nz + midC[2];
+  };
+
+  const updateCenterPositionLinear = () => {
+    let x, y, z;
+    [x, y, z] = center;
+    //速度から位置を更新
+    x += tx;
+    y += ty;
+    z += tz;
+    //球の中心座標の更新
+    center = [x, y, z];
+    //横の壁の反射
+    if (x > 500 || x < -500) tx *= -1;
+    //手前・奥の壁の反射
+    if (z > 2000 || z < 800) tz *= -1;
+    //上下の壁の反射
+    if (y > yFloor - r || y < yCeil + r) ty *= -1;
+  };
+
+  const updateCenterPositionDynamic = () => {
+    let x, y, z;
+    [x, y, z] = center;
+    //速度から位置を更新
+    x += tx;
+    y += ty;
+    z += tz;
+    //加速度から速度を更新
+    ty += tyv;
+    //球の中心座標の更新
+    center = [x, y, z];
+    //横の壁の反射
+    if (x > 500 || x < -500) tx *= -1;
+    //手前・奥の壁の反射
+    if (z > 2000 || z < 500) tz *= -1;
+    //次のフレームで床面に球がめり込む場合
+    if (y + ty > yFloor - r) {
+      //反発係数 
+      ty *= -0.75;
+      //y座標を床面に接触させる
+      y = yFloor - r;
+      //y軸方向の速度を0に収束させる
+      if (Math.abs(ty) < 10) ty = 0;
+    }
+    //次のフレームで天井面に球がめり込む場合
+    if (y + ty < yCeil + r) {
+      //反発係数 
+      ty *= -1;
+      //y座標を天井面に接触させる
+      y = yCeil + r;
+    }
+    //床に摩擦がある
+    //床を転がっているときx, z軸方向の速度を減少させる
+    if (y == yFloor - r && ty === 0 && cnt.current % 10 === 0) {
+      tx *= 0.9;
+      tz *= 0.9;
+    }
   };
 
   const render = (ctx: CanvasRenderingContext2D) => {
@@ -143,7 +226,7 @@ export default function DrawStatic({
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate); // アニメーションを開始
     return () => cancelAnimationFrame(requestRef.current); // クリーンアップで停止
-  }, []);
+  }, [motion]);
 
   // colorsが変わった時に即座に色を反映
   useEffect(() => {
