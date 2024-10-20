@@ -1,4 +1,5 @@
 import DrawStatic from "./DrawStatic";
+import DrawDynamic from "./DrawDynamic";
 
 // 型定義
 type Pattern = {
@@ -43,7 +44,10 @@ export default function Canvas({ stateCanvas, patterns, colors }: CanvasProps) {
         <p>linear</p>
       )}
       {(stateCanvas === "Dynamic") && (
-        <p>dynamic</p>
+        <DrawDynamic
+          patterns={patterns}
+          colors={colors}
+        />
       )}
     </div>
   );

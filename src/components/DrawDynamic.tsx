@@ -47,9 +47,14 @@ export default function DrawStatic({
   const t = 20;
   const theta = Math.PI * 2 / (t * 10);
 
-  let r = 500;
+  let r = 150;
   let midC = [0, 0, 1700];
-  let center = [midC[0], midC[1], midC[2] + radius];
+  // let center = [midC[0], midC[1], midC[2] + radius];
+  let center = [300, 100, 1600];
+  let tx = 40;
+  let ty = -80;
+  let tz = 60;
+  let tyv = 10;
   
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
@@ -65,17 +70,27 @@ export default function DrawStatic({
   };
 
   const updateCenterPosition = () => {
-    const switchMode = Math.floor(cnt.current / 300) % 2 === 0;
-    r = switchMode ? 500 : 250;
-    midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
-
-    const x = center[0] - midC[0];
-    const z = center[2] - midC[2];
-    const nx = Math.cos(theta) * x - Math.sin(theta) * z;
-    const nz = Math.sin(theta) * x + Math.cos(theta) * z;
-
-    center[0] = nx + midC[0];
-    center[2] = nz + midC[2];
+    let x, y, z;
+    [x, y, z] = center;
+    x += tx;
+    y += ty;
+    z += tz;
+    ty += tyv;
+    center = [x, y, z];
+    if (x > 400 || x < -400) tx *= -1;
+    if (z > 2000 || z < 500) tz *= -1;
+    if (y + ty > yFloor - r) {
+      ty = -0.6 * ty;
+      y = 3 * (yFloor - r) - y;
+    }
+    if (yFloor - y < r + 30 && Math.abs(ty) < 20) {
+      ty = 0;
+      y = yFloor - r;
+    }
+    if (y == yFloor - r && ty === 0 && cnt.current % 10 === 0) {
+      tx *= 0.7;
+      tz *= 0.7;
+    }
   };
 
   const render = (ctx: CanvasRenderingContext2D) => {
