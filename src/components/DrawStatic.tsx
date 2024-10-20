@@ -84,7 +84,7 @@ export default function DrawStatic({
     const wx = width / 2;
     const wy = height / 2;
 
-    const image = ctx.getImageData(0, 0, width, height);// here is 87 row
+    const image = ctx.getImageData(0, 0, width, height);
     const pixels = image.data;
 
     for (let i = 0; i < 2 * wy; ++i) for (let j = 0; j < 2 * wx; ++j) {

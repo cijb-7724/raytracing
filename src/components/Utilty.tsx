@@ -1,4 +1,16 @@
-import { star, nomal } from "./ShapePatterns";
+import {
+  normal,
+  star,
+  heart,
+  diamond,
+  clover,
+  spade,
+  abcd,
+  atcoder1,
+  atcoder2,
+  atcoder3,
+  atcoder4,
+} from "./ShapePatterns";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 // 型定義
@@ -95,11 +107,13 @@ export const getColorFromPattern = (
   const wid = 400;
   let alpha = 255;
   let r = 0, g = 0, b = 0;
-  
-  let nx = Math.abs(x) % wid;
-  let nz = Math.abs(z) % wid;
-  nx -= wid / 2;
-  nz -= wid / 2;
+
+  x = Math.floor(x);
+  z = Math.floor(z);
+  let nz = ((x%wid) + wid)%wid - wid/2;
+  let nx = ((z%wid) + wid)%wid - wid/2;
+  nx *= -1;
+
   let patternMode: PatternMode;
 
   // xとzのパターンのチェックに基づいてFloor/Ceilの判定
@@ -109,14 +123,7 @@ export const getColorFromPattern = (
     ? (floorOrCeil === "F" ? "Floor1" : "Ceil1")
     : (floorOrCeil === "F" ? "Floor2" : "Ceil2");
 
-  type ShapeFunction = (w: number, x: number, y: number) => boolean;
-  let isInsidePattern: ShapeFunction;
-
-  if (patterns[patternMode].pattern === "star") {
-    isInsidePattern = star;
-  } else {
-    isInsidePattern = nomal;
-  }
+  const isInsidePattern = getShapeFunction(patterns[patternMode].pattern);
 
   if (isInsidePattern(wid, nx, nz)) {
     ({ r, g, b } = hexToRgb(colors[patternMode].color1));
@@ -128,4 +135,23 @@ export const getColorFromPattern = (
   [r, g, b] = [r, g, b].map(v => Math.min(v, v / d));
   if (refrect) alpha *= 0.85;
   return [r, g, b, alpha];
+};
+
+type ShapeFunction = (w: number, x: number, y: number) => boolean;
+export const getShapeFunction = (pattern: string): ShapeFunction => {
+  const patternsFunc: { [key: string]: ShapeFunction } = {
+    star: star,
+    heart: heart,
+    diamond: diamond,
+    clover: clover,
+    spade: spade,
+    abcd: abcd,
+    atcoder1: atcoder1,
+    atcoder2: atcoder2,
+    atcoder3: atcoder3,
+    atcoder4: atcoder4,
+    default: normal,
+  };
+
+  return patternsFunc[pattern] || patternsFunc.default;
 };

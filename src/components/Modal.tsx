@@ -31,9 +31,9 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
 
         <h2 className="text-2xl mb-4">Select a Pattern</h2>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
 
-          {/* nomal tile pattern */}
+          {/* normal tile pattern */}
           <div onClick={() => {
             onClose();
             onPatternChange("normal");
@@ -41,7 +41,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="nomal"
+              pattern="normal"
               width={width}
             />
           </div>
@@ -59,12 +59,12 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           </div>
           <div onClick={() => {
             onClose();
-            onPatternChange("apple");
+            onPatternChange("heart");
           }}>
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="apple"
+              pattern="heart"
               width={width}
             />
           </div>
@@ -76,6 +76,83 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
               color1={color1}
               color2={color2}
               pattern="abcd"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("diamond");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="diamond"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("clover");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="clover"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("spade");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="spade"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("atcoder1");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="atcoder1"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("atcoder2");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="atcoder2"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("atcoder3");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="atcoder3"
+              width={width}
+            />
+          </div>
+          <div onClick={() => {
+            onClose();
+            onPatternChange("atcoder4");
+          }}>
+            <DrawTilePattern
+              color1={color1}
+              color2={color2}
+              pattern="atcoder4"
               width={width}
             />
           </div>
