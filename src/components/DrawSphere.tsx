@@ -60,7 +60,7 @@ export default function DrawSphere({
     center = [midC[0], midC[1], midC[2] + 600];
   }
   if (motion === "Dynamic") {
-    r = 230;      //球の半径
+  r = 230;    //球の半径
     center = [-300, 200, 1600];
     tx = 17;  //x軸(右)方向の速度
     ty = -60; //y軸(下)方向の速度
@@ -68,7 +68,11 @@ export default function DrawSphere({
     tyv = 3.2;  //y軸方向の加速度
   }
   if (motion === "Linear") {
-    r = 400;
+    r = 250;  //球の半径
+    center = [-300, 100, 1600];
+    tx = 13;  //x軸(右)方向の速度
+    ty = 8;   //y軸(下)方向の速度
+    tz = -17; //z軸(奥)方向の速度
   }
   
   // アニメーション関数（初期化し、常に動作し続ける）
@@ -102,9 +106,20 @@ export default function DrawSphere({
   };
 
   const updateCenterPositionLinear = () => {
-    // center = center.map((value) => value + 1);
-    center[2] += 10;
-    console.log(center[2]);
+    let x, y, z;
+    [x, y, z] = center;
+    //速度から位置を更新
+    x += tx;
+    y += ty;
+    z += tz;
+    //球の中心座標の更新
+    center = [x, y, z];
+    //横の壁の反射
+    if (x > 500 || x < -500) tx *= -1;
+    //手前・奥の壁の反射
+    if (z > 2000 || z < 800) tz *= -1;
+    //上下の壁の反射
+    if (y > yFloor - r || y < yCeil + r) ty *= -1;
   };
 
   const updateCenterPositionDynamic = () => {
