@@ -30,7 +30,7 @@ export default function DrawTilePattern({
 
     let r, g, b;
     for (let i = 0; i < width; ++i) for (let j = 0; j < width; ++j) {
-      if (isInsidePattern(width, i-width/2, j-width/2)) {
+      if (isInsidePattern(width, i - width/2, j - width/2)) {
         ({ r, g, b } = hexToRgb(color1));
       } else {
         ({ r, g, b } = hexToRgb(color2));

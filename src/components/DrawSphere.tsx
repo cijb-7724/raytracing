@@ -46,7 +46,7 @@ export default function DrawSphere({
   const zeros = [0, 0, 0];
   const Vdsee = zeros.slice();
   const t = 20;
-  const theta = Math.PI * 2 / (t * 10);
+  const theta = Math.PI*2 / (t*10);
   let r = 0;
   let center = [0, 0, 0];
   let midC = [0, 0, 0];
@@ -86,20 +86,20 @@ export default function DrawSphere({
       if (motion === "Linear") updateCenterPositionLinear();
       if (motion === "Dynamic") updateCenterPositionDynamic();
       render(ctx); // 現在の色で描画
-      cnt.current = (cnt.current + 1) % 600;
+      cnt.current = (cnt.current+1) % 600;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
 
   const updateCenterPositionStatic = () => {
-    const switchMode = Math.floor(cnt.current / 300) % 2 === 0;
+    const switchMode = Math.floor(cnt.current/300) % 2 === 0;
     r = switchMode ? 500 : 250;
     midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
 
     const x = center[0] - midC[0];
     const z = center[2] - midC[2];
-    const nx = Math.cos(theta) * x - Math.sin(theta) * z;
-    const nz = Math.sin(theta) * x + Math.cos(theta) * z;
+    const nx = Math.cos(theta)*x - Math.sin(theta)*z;
+    const nz = Math.sin(theta)*x + Math.cos(theta)*z;
 
     center[0] = nx + midC[0];
     center[2] = nz + midC[2];
@@ -155,7 +155,7 @@ export default function DrawSphere({
     }
     //床に摩擦がある
     //床を転がっているときx, z軸方向の速度を減少させる
-    if (y == yFloor - r && ty === 0 && cnt.current % 10 === 0) {
+    if (y === yFloor - r && ty === 0 && cnt.current % 10 === 0) {
       tx *= 0.9;
       tz *= 0.9;
     }
@@ -178,9 +178,9 @@ export default function DrawSphere({
       const Esee = Vsee.map((v) => v / norm);
 
       const c1 = dot(Esee, center);
-      const c2 = dot(center, center) - r * r;
+      const c2 = dot(center, center) - r*r;
 
-      if (c1 * c1 - c2 < 0) {
+      if (c1*c1 - c2 < 0) {
         //直接床/天井にぶつかる
         let t = yFloor / Esee[1];
         if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0], t * Esee[2]));
@@ -190,31 +190,31 @@ export default function DrawSphere({
         //球で反射
         let isFloor = false
         let isCeil = false;
-        let t = c1 - Math.sqrt(c1 * c1 - c2);
-        let n = [...zeros]; // 配列のコピーを作成
+        let t = c1 - Math.sqrt(c1*c1-c2);
+        let n = [...zeros];
         for (let k = 0; k < 3; ++k) {
-          n[k] = t * Esee[k] - center[k];
+          n[k] = t*Esee[k] - center[k];
         }
-        const norm = Math.sqrt(n.reduce((sum, val) => sum + val * val, 0)); // ノルムの計算
+        const norm = Math.sqrt(n.reduce((sum, val) => sum + val*val, 0)); // ノルムの計算
         for (let k = 0; k < 3; ++k) {
           n[k] /= norm;
         }
 
         let coef = -2 * dot(Esee, n);
         for (let k=0; k<3; ++k) {
-          Vdsee[k] = Esee[k] + coef * n[k];
+          Vdsee[k] = Esee[k] + coef*n[k];
         }
 
-        let s = (yFloor - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        let s = (yFloor-t*Esee[1]) / Vdsee[1];
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] < 0) isFloor = true;
 
-        s = (yCeil - t * Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0] + s * Vdsee[0], t * Esee[2] + s * Vdsee[2], true));
+        s = (yCeil-t*Esee[1]) / Vdsee[1];
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] > 0) isCeil = true;
 
         if (isFloor) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
-        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil/Esee[1]*Esee[0], yCeil/Esee[1] * Esee[2]));
+        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil / Esee[1] * Esee[0], yCeil / Esee[1] * Esee[2]));
       }
     }
 

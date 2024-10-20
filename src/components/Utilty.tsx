@@ -73,7 +73,6 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
   let r, g, b;
   // 16進数コードが正しい形式か確認
   if (validHex.length !== 6 || !/^[0-9A-Fa-f]{6}$/.test(validHex)) {
-    //dame
     r = 0;
     g = 0;
     b = 0;
@@ -110,14 +109,14 @@ export const getColorFromPattern = (
 
   x = Math.floor(x);
   z = Math.floor(z);
-  let nz = ((x%wid) + wid)%wid - wid/2;
-  let nx = ((z%wid) + wid)%wid - wid/2;
+  let nz = ((x%wid)+wid)%wid - wid/2;
+  let nx = ((z%wid)+wid)%wid - wid/2;
   nx *= -1;
 
   let patternMode: PatternMode;
 
   // xとzのパターンのチェックに基づいてFloor/Ceilの判定
-  const isSurface1 = Math.abs(Math.floor(x / wid) % 2) === Math.abs(Math.floor(z / wid) % 2);
+  const isSurface1 = Math.abs(Math.floor(x/wid) % 2) === Math.abs(Math.floor(z/wid) % 2);
   // Floor/Ceilの判定をシンプルに
   patternMode = isSurface1
     ? (floorOrCeil === "F" ? "Floor1" : "Ceil1")
@@ -131,7 +130,7 @@ export const getColorFromPattern = (
     ({ r, g, b } = hexToRgb(colors[patternMode].color2));
   }
 
-  const d = (x * x + z * z) / 1000000;
+  const d = (x*x + z*z) / 1000000;
   [r, g, b] = [r, g, b].map(v => Math.min(v, v / d));
   if (refrect) alpha *= 0.85;
   return [r, g, b, alpha];
