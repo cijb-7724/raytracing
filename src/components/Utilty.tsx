@@ -101,6 +101,8 @@ export const getColorFromPattern = (
   let alpha = 255;
   let r = 0, g = 0, b = 0;
 
+  x = Math.floor(x);
+  z = Math.floor(z);
   let nz = ((x%wid) + wid)%wid - wid/2;
   let nx = ((z%wid) + wid)%wid - wid/2;
   nx *= -1;
