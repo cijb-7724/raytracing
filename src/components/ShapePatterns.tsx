@@ -109,7 +109,7 @@ export const atcoder4 = (w: number, x: number, y: number): boolean => {
   return atcoder4Shape[nx][ny];
 }
 
-export const abcd = (w: number, x: number, y: number): boolean => {
+export const circle = (w: number, x: number, y: number): boolean => {
   return x*x + y*y <= (w/2*0.7) ** 2;
 }
 

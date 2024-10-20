@@ -70,12 +70,12 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           </div>
           <div onClick={() => {
             onClose();
-            onPatternChange("abcd");
+            onPatternChange("circle");
           }}>
             <DrawTilePattern
               color1={color1}
               color2={color2}
-              pattern="abcd"
+              pattern="circle"
               width={width}
             />
           </div>
