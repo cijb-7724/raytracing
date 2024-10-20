@@ -30,6 +30,14 @@ type CanvasProps = {
   colors: Colors;
 };
 
+/**
+ * 運動する球体を模様・色でレンダリングするキャンバスコンポーネント.
+ * 
+ * @param stateCanvas - 球体の運動の規則.
+ * @param patterns - 天井や床に適用される模様.
+ * @param colors - 天井や床に適用される色.
+ * @returns キャンバスを表すJSX要素.
+ */
 export default function Canvas({ stateCanvas, patterns, colors }: CanvasProps) {
   return (
     <div className="w-2/5 aspect-square bg-blue-100 flex items-center justify-center flex-col">

@@ -6,7 +6,19 @@ type ModalProps = {
   onClose: () => void;
   onPatternChange: (pattern: string) => void;
 };
-  
+
+/**
+ * 模様選択用のモーダルウィンドウを表示するコンポーネント.
+ * モーダル内でユーザーが選択した模様に基づいて `onPatternChange` 関数を呼び出し, 選択内容を親コンポーネントに通知する.
+ * モーダル外のクリックでウィンドウを閉じる機能も持っている.
+ * 
+ * @param color1 - 模様の内側の色
+ * @param color2 - 模様の外側の色
+ * @param onClose - モーダルを閉じるための関数. モーダル外をクリックすると呼び出される.
+ * @param onPatternChange - 模様を変更するための関数. ユーザーが模様を選択した際に呼び出される.
+ * 
+ * @returns モーダルウィンドウとして表示される JSX 要素.
+ */
 export default function Modal({ color1, color2, onClose, onPatternChange}: ModalProps) {
   const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // モーダル外のクリックを検知して閉じる

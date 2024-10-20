@@ -37,23 +37,22 @@ type Colors = {
   Ceil2: ColorPair;
 };
 
-
 /**
  * 
- * @param a 多次元ベクトル
- * @param b 多次元ベクトル
- * @returns a, bの内積の実数
+ * @param a 多次元ベクトル.
+ * @param b 多次元ベクトル.
+ * @returns a, bの内積の実数.
  */
 export const dot = (a: number[], b: number[]) =>
   a.reduce((sum, v, i) => sum + v * b[i], 0);
 
 /**
  * 
- * @param pixels キャンバスを表す1次元配列
- * @param w キャンバスの一辺
- * @param i キャンバスの上からi行目
- * @param j キャンバスの左からj列目
- * @param color [r, g, b, alpha]
+ * @param pixels キャンバスを表す1次元配列.
+ * @param w キャンバスの一辺.
+ * @param i キャンバスの上からi行目.
+ * @param j キャンバスの左からj列目.
+ * @param color [r, g, b, alpha].
  */
 export const setColor = (
   pixels: Uint8ClampedArray,
@@ -66,7 +65,11 @@ export const setColor = (
   for (let k = 0; k < 4; ++k) pixels[base + k] = color[k];
 };
 
-
+/**
+ * 
+ * @param hex - #RRGGBB形式のカラーコード.
+ * @returns [r, g, b].
+ */
 export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
   // 先頭が "#" の場合は除去
   const validHex = hex.startsWith('#') ? hex.slice(1) : hex;
@@ -87,13 +90,13 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
 
 /**
  * 
- * @param floorOrCeil :"F" / "C"
- * @param colors      :各床や天井の色1, 2
- * @param patterns    :各床や天井の模様
- * @param x           :空間内で床や天井に光線が到達したx座標
- * @param z           :空間内で床や天井に光線が到達したz座標
- * @param refrect     :反射後に到達したらtrue, 直接ならfalse
- * @returns [r, g, b, alpha]
+ * @param floorOrCeil :"F" / "C".
+ * @param colors      :各床や天井の色1, 2.
+ * @param patterns    :各床や天井の模様.
+ * @param x           :空間内で床や天井に光線が到達したx座標.
+ * @param z           :空間内で床や天井に光線が到達したz座標.
+ * @param refrect     :反射後に到達したらtrue, 直接ならfalse.
+ * @returns [r, g, b, alpha].
  */
 export const getColorFromPattern = (
   floorOrCeil: string,
@@ -137,6 +140,13 @@ export const getColorFromPattern = (
 };
 
 type ShapeFunction = (w: number, x: number, y: number) => boolean;
+/**
+ * 指定された模様に対応する形状関数を返す.
+ * 形状関数は, 指定された座標 (x, y) が模様の内部にあるかどうかを判定する.
+ * 
+ * @param pattern - 模様の名前.
+ * @returns 座標 (x, y) が模様内にあるかどうかを判定する関数.
+ */
 export const getShapeFunction = (pattern: string): ShapeFunction => {
   const patternsFunc: { [key: string]: ShapeFunction } = {
     star: star,

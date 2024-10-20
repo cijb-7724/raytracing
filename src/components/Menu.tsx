@@ -15,6 +15,21 @@ type MenuProps = {
   onPatternChange: (mode: string) => void;
 };
 
+/**
+ * メニューコンポーネント. 床や天井のパターンやカラーを選択・変更できるインターフェース.
+ *
+ * @param setPatternAndColorMode - 床や天井のモードを設定する関数. ボタンをクリックすることで呼び出され, "Floor1", "Floor2", "Ceil1", "Ceil2"のいずれかを選択する.
+ * @param color1 - 現在の模様における内側の色.
+ * @param onColorChange1 - 色1を変更するための関数. カラーピッカーで選択された色を親コンポーネントに渡す.
+ * @param color2 - 現在の模様における外側の色.
+ * @param onColorChange2 - 色2を変更するための関数. カラーピッカーで選択された色を親コンポーネントに渡す.
+ * @param pattern - 現在選択されている模様 (e.g.：star, heart...).
+ * @param onPatternChange - 模様を変更するための関数. 選択された模様を親コンポーネントに渡す.
+ * 
+ * @returns パターンや色を選択するためのインターフェースを含む JSX 要素を返す.
+ * 
+ * このコンポーネントは, 床や天井のパターンや色をインタラクティブに変更できるUIを提供する. 各床や天井に対して異なる設定が可能で, ユーザーが選択したパターンや色に応じてUIが更新される.
+ */
 export default function Menu({
   setPatternAndColorMode,
   color1,

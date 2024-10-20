@@ -5,6 +5,15 @@ type ColorPickerProps = {
   onColorChange: (color: string) => void;
 };
 
+/**
+ * ColorPicker コンポーネント.
+ * ユーザーが色を選択できる円形のカラーピッカーを提供する.
+ * 円形ボタンをクリックすると隠された `<input type="color">` が開き色の変更が可能.
+ * 
+ * @param color - 現在選択されている色. #RRGGBB形式.
+ * @param onColorChange - 色を変更するために呼び出す関数.
+ * @returns カラーピッカーのJSX要素.
+ */
 export default function ColorPicker({ color, onColorChange }: ColorPickerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 

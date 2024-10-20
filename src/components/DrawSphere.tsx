@@ -31,6 +31,13 @@ type DrawSphereProps = {
   motion: string;
 };
 
+/**
+ * 
+ * @param patterns - 各床や天井の模様.
+ * @param colors - 各床や天井の色.
+ * @param motion - 球の運動の規則.
+ * @returns 球の運動を描画したキャンバスのJSX要素.
+ */
 export default function DrawSphere({
   patterns, 
   colors,
@@ -90,7 +97,10 @@ export default function DrawSphere({
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
-
+  
+  /**
+   * Staticな運動の次の球の中心座標と半径を計算.
+   */
   const updateCenterPositionStatic = () => {
     const switchMode = Math.floor(cnt.current/300) % 2 === 0;
     r = switchMode ? 500 : 250;
@@ -105,6 +115,9 @@ export default function DrawSphere({
     center[2] = nz + midC[2];
   };
 
+  /**
+   * Linearな運動の次の球の中心座標を計算.
+   */
   const updateCenterPositionLinear = () => {
     let x, y, z;
     [x, y, z] = center;
@@ -122,6 +135,9 @@ export default function DrawSphere({
     if (y > yFloor - r || y < yCeil + r) ty *= -1;
   };
 
+  /**
+   * Gravityな運動の次の球の中心座標を計算.
+   */
   const updateCenterPositionGravity = () => {
     let x, y, z;
     [x, y, z] = center;
@@ -161,6 +177,18 @@ export default function DrawSphere({
     }
   };
 
+  /**
+   * 提供されたキャンバスのコンテキストに対してシーンを描画し, 球体からの反射や床・天井との交差を含むレイトレーシングの計算をする
+   *
+   * @param ctx - キャンバスのレンダリングコンテキスト
+   * @returns void
+   *
+   * 関数内で実行される主な操作：
+   * - 光線計算: キャンバスの各ピクセルに対して, ピクセルの位置とカメラの視線ベクトルを使って光線の方向を決定する.
+   * - 交差判定: 光線が床, 天井, 球体と交差するかどうかを計算する.
+   * - 反射処理: 光線が球体に当たった場合, 反射ベクトルを計算し, 新しい方向で床や天井とのさらなる交差を計算する.
+   * - 色付け: 光線が交差した場所や反射したかどうかに基づいてピクセルに色を決定する.
+   */
   const render = (ctx: CanvasRenderingContext2D) => {
     if (!ctx || !canvasRef.current) return;
     const { width, height } = canvasRef.current;

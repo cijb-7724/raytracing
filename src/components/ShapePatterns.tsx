@@ -1,9 +1,9 @@
 /**
  * 
- * @param _w - 一辺wの正方形内の図形について
- * @param _x - 座標平面上のx座標 x in [-w/2, w/2]
- * @param _y - 座標平面上のy座標 y in [-w/2, w/2]
- * @returns 一辺wの正方形内の(x, y)について常にtrue
+ * @param _w - 一辺wの正方形内の図形について.
+ * @param _x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param _y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)について常にtrue.
  */
 export const normal = (_w: number, _x: number, _y: number): boolean => {
   return true;
@@ -11,10 +11,10 @@ export const normal = (_w: number, _x: number, _y: number): boolean => {
 
 /**
  * 
- * @param w - 一辺wの正方形内の図形について
- * @param x - 座標平面上のx座標 x in [-w/2, w/2]
- * @param y - 座標平面上のy座標 y in [-w/2, w/2]
- * @returns 一辺wの正方形内の(x, y)が星型の内側ならtrue, 外側ならfalse
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)が星型の内側ならtrue, 外側ならfalse.
  */
 export const star = (w: number, x: number, y: number): boolean => {
   const r = w * 0.8 / 2;
@@ -46,6 +46,13 @@ export const star = (w: number, x: number, y: number): boolean => {
 };
 
 import { heartShape } from "./pictureHeart";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がハート型の内側ならtrue, 外側ならfalse.
+ */
 export const heart = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = heartShape.length;
@@ -54,6 +61,13 @@ export const heart = (w: number, x: number, y: number): boolean => {
 }
 
 import { diamondShape } from "./pictureDiamond";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がダイヤモンド型の内側ならtrue, 外側ならfalse.
+ */
 export const diamond = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = diamondShape.length;
@@ -62,6 +76,13 @@ export const diamond = (w: number, x: number, y: number): boolean => {
 }
 
 import { cloverShape } from "./pictureClover";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がクローバー型の内側ならtrue, 外側ならfalse.
+ */
 export const clover = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = cloverShape.length;
@@ -70,6 +91,13 @@ export const clover = (w: number, x: number, y: number): boolean => {
 }
 
 import { spadeShape } from "./pictureSpade";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がスペード型の内側ならtrue, 外側ならfalse.
+ */
 export const spade = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = spadeShape.length;
@@ -78,6 +106,13 @@ export const spade = (w: number, x: number, y: number): boolean => {
 }
 
 import { atcoder1Shape } from "./pictureAtcoder1";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がAtcoder1型の内側ならtrue, 外側ならfalse.
+ */
 export const atcoder1 = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = atcoder1Shape.length;
@@ -86,6 +121,13 @@ export const atcoder1 = (w: number, x: number, y: number): boolean => {
 }
 
 import { atcoder2Shape } from "./pictureAtcoder2";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がAtcoder2型の内側ならtrue, 外側ならfalse.
+ */
 export const atcoder2 = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = atcoder2Shape.length;
@@ -94,6 +136,13 @@ export const atcoder2 = (w: number, x: number, y: number): boolean => {
 }
 
 import { atcoder3Shape } from "./pictureAtcoder3";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がAtcoder3型の内側ならtrue, 外側ならfalse.
+ */
 export const atcoder3 = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = atcoder3Shape.length;
@@ -102,6 +151,13 @@ export const atcoder3 = (w: number, x: number, y: number): boolean => {
 }
 
 import { atcoder4Shape } from "./pictureAtcoder4";
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)がAtcoder4型の内側ならtrue, 外側ならfalse.
+ */
 export const atcoder4 = (w: number, x: number, y: number): boolean => {
   if (isNaN(x) || isNaN(y)) return false;
   const wPic = atcoder4Shape.length;
@@ -109,10 +165,25 @@ export const atcoder4 = (w: number, x: number, y: number): boolean => {
   return atcoder4Shape[nx][ny];
 }
 
+/**
+ * 
+ * @param w - 一辺wの正方形内の図形について.
+ * @param x - 座標平面上のx座標 x in [-w/2, w/2].
+ * @param y - 座標平面上のy座標 y in [-w/2, w/2].
+ * @returns 一辺wの正方形内の(x, y)が円形の内側ならtrue, 外側ならfalse.
+ */
 export const circle = (w: number, x: number, y: number): boolean => {
   return x*x + y*y <= (w/2*0.7) ** 2;
 }
 
+/**
+ * 
+ * @param w 正方形の一辺.
+ * @param wPic 正方形の画像の一辺.
+ * @param x x座標 x in [-w/2, w/2].
+ * @param y y座標 y in [-w/2, w/2].
+ * @returns 正方形内の座標(x, y)が対応する画像のインデックス.
+ */
 const getImageIndex = (w: number, wPic: number, x: number, y: number): [number, number] => {
   x = Math.max(x, -Math.floor(w/2));
   x = Math.min(x, Math.floor(w/2) - 1);

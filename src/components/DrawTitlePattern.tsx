@@ -8,6 +8,14 @@ type DrawTilePatternProps = {
   width: number;
 };
 
+/**
+ * 
+ * @param color1 - タイルに使用する模様の内側の色.
+ * @param color2 - タイルに使用する模様の外側の色.
+ * @param pattern - タイルの模様.
+ * @param width - タイルの幅.
+ * @returns 模様を描画したタイルを描画したキャンバスのJSX要素.
+ */
 export default function DrawTilePattern({
   color1,
   color2,
