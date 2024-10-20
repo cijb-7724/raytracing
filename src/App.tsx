@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
-import useLocalStorage from "./useLocalStorage";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 
@@ -44,9 +43,6 @@ export default function App() {
       },
     }));
   };
-
-  //custom hook
-  const [age, setAge] = useLocalStorage("age", 22);
 
   return (
     <div className="flex w-screen flex-col items-center">
@@ -93,11 +89,6 @@ export default function App() {
         <button onClick={() => setTitleColor(0)} className="my-2">RED</button>
         <button onClick={() => setTitleColor(1)} className="my-2">BLUE</button>
       </div>
-
-      <hr />
-      <h1>custom hook</h1>
-      <p>{age}</p>
-      <button onClick={() => setAge(80)}>set your age</button>
 
     </div>
   );
