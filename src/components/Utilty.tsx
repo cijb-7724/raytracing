@@ -2,7 +2,14 @@ import {
   normal,
   star,
   heart,
+  diamond,
+  clover,
+  spade,
   abcd,
+  atcoder1,
+  atcoder2,
+  atcoder3,
+  atcoder4,
 } from "./ShapePatterns";
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
@@ -135,7 +142,14 @@ export const getShapeFunction = (pattern: string): ShapeFunction => {
   const patternsFunc: { [key: string]: ShapeFunction } = {
     star: star,
     heart: heart,
+    diamond: diamond,
+    clover: clover,
+    spade: spade,
     abcd: abcd,
+    atcoder1: atcoder1,
+    atcoder2: atcoder2,
+    atcoder3: atcoder3,
+    atcoder4: atcoder4,
     default: normal,
   };
 
