@@ -13,10 +13,10 @@ export default function App() {
   
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
   const [colors, setColors] = useState({
-    Floor1: { color1: "#ff0000", color2: "#00ff00" },
-    Floor2: { color1: "#0000ff", color2: "#ffff00" },
-    Ceil1: { color1: "#ff00ff", color2: "#00ffff" },
-    Ceil2: { color1: "#ffffff", color2: "#000000" },
+    Floor1: { color1: "#ffffff", color2: "#ff0000" },
+    Floor2: { color1: "#00C0C0", color2: "#D4B389" },
+    Ceil1: { color1: "#B8C671", color2: "#F7F06D" },
+    Ceil2: { color1: "#ACA9ED", color2: "#ffffff" },
   });
   // カラーピッカーの色が変更されたときに状態を更新する関数
   const handleColorChange = (key: string, color: string) => {
@@ -30,9 +30,9 @@ export default function App() {
   };
 
   const [patterns, setPatterns] = useState({
-    Floor1: { pattern: "star" },
-    Floor2: { pattern: "star" },
-    Ceil1: { pattern: "normal"},
+    Floor1: { pattern: "normal" },
+    Floor2: { pattern: "atcoder2" },
+    Ceil1: { pattern: "star"},
     Ceil2: { pattern: "normal"},
   });
   // patternが変更されたときに状態を更新する関数
