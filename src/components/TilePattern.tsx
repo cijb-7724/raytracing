@@ -33,7 +33,7 @@ export default function TilePattern({
     <div>
       {/* TilePattern をクリックしたときにモーダルを開く */}
       <div
-        className="w-full aspect-square bg-blue-400 flex items-center justify-center flex-col cursor-pointer"
+        className="test-tile-wrap"
         onClick={() => setIsModalOpen(true)}
       >
         <DrawTilePattern

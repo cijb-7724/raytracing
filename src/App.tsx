@@ -67,7 +67,7 @@ export default function App() {
 
       <div className="container">
         <div className="components">
-          <div className="main-canvas">
+          <div>
             <Canvas
               stateCanvas={stateCanvas}
               patterns={patterns}
@@ -94,10 +94,12 @@ export default function App() {
             </div>
             
             <div className="icon">
-              <div className="icon__settings" onClick={() => setMenuOpend(!menuOpend)}>
+              <div className={`icon__settings ${menuOpend ? 'icon__settings--open' : ''}`} onClick={() => setMenuOpend(!menuOpend)}>
                 <IconComponent />
               </div>
             </div>
+
+            
             {menuOpend && (
               <Menu
                 patternAndColorMode={patternAndColorMode}
@@ -110,8 +112,8 @@ export default function App() {
                 onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
               />
             )}
+
           </div>
-          
         </div>
         
       </div>

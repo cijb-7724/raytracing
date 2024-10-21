@@ -266,6 +266,7 @@ export default function DrawSphere({
 
   return (
       <canvas width="250" height="250" ref={canvasRef}
-      style={{ width: '500px', height: '500px' }} ></canvas>
+      style={{ width: '500px', height: '500px' }}
+      className="main-canvas" ></canvas>
   );
 }

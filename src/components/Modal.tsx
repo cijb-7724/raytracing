@@ -22,7 +22,7 @@ type ModalProps = {
 export default function Modal({ color1, color2, onClose, onPatternChange}: ModalProps) {
   const handleOutsideClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // モーダル外のクリックを検知して閉じる
-    if ((event.target as HTMLDivElement).id === "modal-overlay") {
+    if ((event.target as HTMLDivElement).id !== "buttonInModal") {
       onClose();
     }
   };
@@ -30,10 +30,10 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
   return (
     <div
       id="modal-overlay"
-      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="modal-overlay"
       onClick={handleOutsideClick}
     >
-      <div className="bg-white p-6 rounded-lg shadow-lg relative z-60">
+      <div className="">
         <button
           className="absolute top-2 right-2 text-xl bg-black text-white rounded-full p-2"
           onClick={onClose}
@@ -41,15 +41,13 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           &times;
         </button>
 
-        <h2 className="text-2xl mb-4">Select a Pattern</h2>
-
         <div className="grid grid-cols-3 gap-4">
 
           {/* normal tile pattern */}
           <div onClick={() => {
             onClose();
             onPatternChange("normal");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -61,7 +59,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("star");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -72,7 +70,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("heart");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -83,7 +81,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("circle");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -94,7 +92,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("diamond");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -105,7 +103,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("clover");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -116,7 +114,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("spade");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -127,7 +125,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("atcoder1");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -138,7 +136,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("atcoder2");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -149,7 +147,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("atcoder3");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}
@@ -160,7 +158,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
           <div onClick={() => {
             onClose();
             onPatternChange("atcoder4");
-          }}>
+          }} id="buttonInModal">
             <DrawTilePattern
               color1={color1}
               color2={color2}

@@ -31,6 +31,7 @@ type MenuProps = {
  * このコンポーネントは, 床や天井のパターンや色をインタラクティブに変更できるUIを提供する. 各床や天井に対して異なる設定が可能で, ユーザーが選択したパターンや色に応じてUIが更新される.
  */
 export default function Menu({
+  patternAndColorMode,
   setPatternAndColorMode,
   color1,
   onColorChange1,
@@ -40,14 +41,48 @@ export default function Menu({
   onPatternChange
 }: MenuProps) {
   return (
-    <div className="flex">
-      <div className="h-80 w-40 bg-blue-600 flex items-center justify-center flex-col">
-        <button onClick={() => setPatternAndColorMode("Floor1")}>Floor 1</button>
-        <button onClick={() => setPatternAndColorMode("Floor2")}>Floor 2</button>
-        <button onClick={() => setPatternAndColorMode("Ceil1")}>Ceil 1</button>
-        <button onClick={() => setPatternAndColorMode("Ceil2")}>Ceil 2</button>
+    <div className="setting-pattern-and-color">
+      <div className="segmented-control-surface">
+        <input
+          type="radio"
+          name="radio3"
+          value="Floor1"
+          id="tab-1s"
+          checked={patternAndColorMode === "Floor1"} onChange={() => setPatternAndColorMode("Floor1")} />
+        <label htmlFor="tab-1s" className= "segmented-control-surface__1">
+          <p>Floor1</p></label>
+        
+          <input
+          type="radio"
+          name="radio3"
+          value="Floor2"
+          id="tab-2s"
+          checked={patternAndColorMode === "Floor2"} onChange={() => setPatternAndColorMode("Floor2")} />
+        <label htmlFor="tab-2s" className= "segmented-control-surface__2">
+          <p>Floor2</p></label>
+        
+        <input
+          type="radio"
+          name="radio3"
+          value="Ceil1"
+          id="tab-3s"
+          checked={patternAndColorMode === "Ceil1"} onChange={() => setPatternAndColorMode("Ceil1")} />
+        <label htmlFor="tab-3s" className= "segmented-control-surface__3">
+          <p>Ceil1</p></label>
+        
+        <input
+          type="radio"
+          name="radio3"
+          value="Ceil2"
+          id="tab-4s"
+          checked={patternAndColorMode === "Ceil2"} onChange={() => setPatternAndColorMode("Ceil2")} />
+        <label htmlFor="tab-4s" className= "segmented-control-surface__4">
+          <p>Ceil2</p></label>
+        
+        <div className="segmented-control-surface__color"></div>
       </div>
-      <div className="flex flex-col">
+
+      <div className="test-tile-and-colorpicker">
         <TilePattern
           color1={color1}
           color2={color2}

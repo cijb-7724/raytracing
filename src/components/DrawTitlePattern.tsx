@@ -49,6 +49,6 @@ export default function DrawTilePattern({
   }
 
   return (
-      <canvas width={width} height={width} ref={canvasRef_pattern} ></canvas>
+      <canvas width={width} height={width} ref={canvasRef_pattern} className="test-tile"></canvas>
   );
 }
