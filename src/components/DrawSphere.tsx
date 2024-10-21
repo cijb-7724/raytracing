@@ -93,7 +93,7 @@ export default function DrawSphere({
       if (motion === "Linear") updateCenterPositionLinear();
       if (motion === "Gravity") updateCenterPositionGravity();
       render(ctx); // 現在の色で描画
-      cnt.current = (cnt.current+1) % 600;
+      cnt.current = (cnt.current+1) % 400;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
@@ -102,7 +102,7 @@ export default function DrawSphere({
    * Staticな運動の次の球の中心座標と半径を計算.
    */
   const updateCenterPositionStatic = () => {
-    const switchMode = Math.floor(cnt.current/300) % 2 === 0;
+    const switchMode = Math.floor(cnt.current/200) % 2 === 0;
     r = switchMode ? 500 : 250;
     midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
 
@@ -265,7 +265,12 @@ export default function DrawSphere({
   }, [colors, patterns]);
 
   return (
-      <canvas width="250" height="250" ref={canvasRef}
-      style={{ width: '500px', height: '500px' }} ></canvas>
-  );
+    <canvas 
+      width="250" 
+      height="250" 
+      ref={canvasRef}
+      style={{ width: '500px', aspectRatio: '1 / 1' }}
+      className="main-canvas" 
+    ></canvas>
+);
 }

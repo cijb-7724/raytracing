@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { IoWaterSharp } from "react-icons/io5";
 
 type ColorPickerProps = {
   color: string;
@@ -26,15 +27,15 @@ export default function ColorPicker({ color, onColorChange }: ColorPickerProps) 
   };
 
   return (
-    <div className="relative">
-      {/* 円形ボタン */}
+    <div>
       <div
-        className="h-14 w-14 rounded-full border-4 border-white cursor-pointer"
-        style={{ backgroundColor: color }}
+        className="icon-color-picker"
         onClick={handleClick}
-      />
+        style={{ color: color }} // アイコンの色を動的に変更
+      >
+        <IoWaterSharp />
+      </div>
 
-      {/* 見えない input タグ */}
       <input
         type="color"
         ref={inputRef}
@@ -42,6 +43,7 @@ export default function ColorPicker({ color, onColorChange }: ColorPickerProps) 
         onChange={handleChange}
         className="hidden" // input を隠す
       />
+      
     </div>
   );
 }
