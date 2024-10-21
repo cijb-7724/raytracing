@@ -6,6 +6,7 @@ type DrawTilePatternProps = {
   color2: string;
   pattern: string;
   width: number;
+  onClick?: () => void;
 };
 
 /**
@@ -14,6 +15,7 @@ type DrawTilePatternProps = {
  * @param color2 - タイルに使用する模様の外側の色.
  * @param pattern - タイルの模様.
  * @param width - タイルの幅.
+ * @param onClick - クリックを検知して親要素に通知する.
  * @returns 模様を描画したタイルを描画したキャンバスのJSX要素.
  */
 export default function DrawTilePattern({
@@ -21,6 +23,7 @@ export default function DrawTilePattern({
   color2,
   pattern,
   width,
+  onClick
 }: DrawTilePatternProps) {
   const canvasRef_pattern = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
@@ -49,6 +52,6 @@ export default function DrawTilePattern({
   }
 
   return (
-      <canvas width={width} height={width} ref={canvasRef_pattern} className="test-tile"></canvas>
+      <canvas width={width} height={width} ref={canvasRef_pattern} onClick={onClick} className="test-tile"></canvas>
   );
 }

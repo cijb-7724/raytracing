@@ -34,13 +34,14 @@ export default function TilePattern({
       {/* TilePattern をクリックしたときにモーダルを開く */}
       <div
         className="test-tile-wrap"
-        onClick={() => setIsModalOpen(true)}
+        // onClick={() => setIsModalOpen(true)}
       >
         <DrawTilePattern
           color1={color1}
           color2={color2}
           pattern={pattern}
           width={100}
+          onClick={() => setIsModalOpen(true)}
         />
       </div>
 

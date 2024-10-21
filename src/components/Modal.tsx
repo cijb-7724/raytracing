@@ -35,7 +35,6 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
     >
       <div className="">
         <button
-          className="absolute top-2 right-2 text-xl bg-black text-white rounded-full p-2"
           onClick={onClose}
         >
           &times;
