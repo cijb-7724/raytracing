@@ -94,52 +94,27 @@ export default function App() {
             </div>
             
             <div className="icon">
-              <div className="icon__settings">
+              <div className="icon__settings" onClick={() => setMenuOpend(!menuOpend)}>
                 <IconComponent />
               </div>
             </div>
+            {menuOpend && (
+              <Menu
+                patternAndColorMode={patternAndColorMode}
+                setPatternAndColorMode={setPatternAndColorMode}
+                color1={colors[patternAndColorMode].color1}
+                onColorChange1={(color) => handleColorChange("color1", color)}
+                color2={colors[patternAndColorMode].color2}
+                onColorChange2={(color) => handleColorChange("color2", color)}
+                pattern={patterns[patternAndColorMode].pattern}
+                onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
+              />
+            )}
           </div>
           
         </div>
         
       </div>
     </div>
-    // <div className="flex w-screen flex-col items-center">
-    //   <p className="text-red-600 font-bold text-5xl bg-yellow-100">
-    //     Study RayTracing
-    //   </p>
-    //   <div className="flex w-full bg-pink-100">
-    //     <Canvas
-    //       stateCanvas={stateCanvas}
-    //       patterns={patterns}
-    //       colors={colors}
-    //     />
-
-    //     <div className="flex flex-col">
-    //       <div>
-    //         <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
-    //         <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
-    //         <button onClick={() => setStateCanvas("Gravity")} className="mx-2">Gravity</button>
-    //       </div>
-
-    //       <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
-    //         setting
-    //       </button>
-
-    //       {menuOpend && (
-    //         <Menu
-    //           patternAndColorMode={patternAndColorMode}
-    //           setPatternAndColorMode={setPatternAndColorMode}
-    //           color1={colors[patternAndColorMode].color1}
-    //           onColorChange1={(color) => handleColorChange("color1", color)}
-    //           color2={colors[patternAndColorMode].color2}
-    //           onColorChange2={(color) => handleColorChange("color2", color)}
-    //           pattern={patterns[patternAndColorMode].pattern}
-    //           onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
-    //         />
-    //       )}
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
