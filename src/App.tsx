@@ -1,20 +1,22 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
+import { IoSettingsSharp } from 'react-icons/io5';  // Ioniconsから設定のアイコンをインポート
+
+
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 
 export default function App() {
   const [stateCanvas, setStateCanvas] = useState("Static");
   const [menuOpend, setMenuOpend] = useState(false);
-  const [titleColor, setTitleColor] = useState(0);
   
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
   const [colors, setColors] = useState({
-    Floor1: { color1: "#ff0000", color2: "#00ff00" },
-    Floor2: { color1: "#0000ff", color2: "#ffff00" },
-    Ceil1: { color1: "#ff00ff", color2: "#00ffff" },
-    Ceil2: { color1: "#ffffff", color2: "#000000" },
+    Floor1: { color1: "#ffffff", color2: "#ff0000" },
+    Floor2: { color1: "#00C0C0", color2: "#D4B389" },
+    Ceil1: { color1: "#B8C671", color2: "#F7F06D" },
+    Ceil2: { color1: "#ACA9ED", color2: "#ffffff" },
   });
   // カラーピッカーの色が変更されたときに状態を更新する関数
   const handleColorChange = (key: string, color: string) => {
@@ -28,9 +30,9 @@ export default function App() {
   };
 
   const [patterns, setPatterns] = useState({
-    Floor1: { pattern: "star" },
-    Floor2: { pattern: "star" },
-    Ceil1: { pattern: "normal"},
+    Floor1: { pattern: "normal" },
+    Floor2: { pattern: "atcoder2" },
+    Ceil1: { pattern: "star"},
     Ceil2: { pattern: "normal"},
   });
   // patternが変更されたときに状態を更新する関数
@@ -44,52 +46,76 @@ export default function App() {
     }));
   };
 
+
+  const IconComponent = () => {
+    return (
+      <div className="icon__settings">
+        <IoSettingsSharp />
+      </div>
+    );
+  };
+
   return (
-    <div className="flex w-screen flex-col items-center">
-      <p className={`${titleColor === 0 ? "text-red-600" : "text-blue-600"} font-bold text-5xl bg-yellow-100`}>
-        Study RayTracing
-      </p>
-      <div className="flex w-full bg-pink-100">
-        <Canvas
-          stateCanvas={stateCanvas}
-          patterns={patterns}
-          colors={colors}
-        />
-
-        <div className="flex flex-col">
-        <div>
-          <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
-          <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
-          <button onClick={() => setStateCanvas("Gravity")} className="mx-2">Gravity</button>
+    <div>
+      <div className="container_title">
+        <div className="components_title">
+          <p>RayTracing</p>
         </div>
-          <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
-            setting
-          </button>
+        
+      </div>
 
-          {menuOpend && (
-            <Menu
-              patternAndColorMode={patternAndColorMode}
-              setPatternAndColorMode={setPatternAndColorMode}
-              color1={colors[patternAndColorMode].color1}
-              onColorChange1={(color) => handleColorChange("color1", color)}
-              color2={colors[patternAndColorMode].color2}
-              onColorChange2={(color) => handleColorChange("color2", color)}
-              pattern={patterns[patternAndColorMode].pattern}
-              onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
+      <div className="container">
+        <div className="components">
+          <div>
+            <Canvas
+              stateCanvas={stateCanvas}
+              patterns={patterns}
+              colors={colors}
             />
-          )}
+          </div>
+          
+          <div className="menu">
+            <div className="segmented-control">
+
+              <input type="radio" name="radio2" value="Static" id="tab-1" checked={stateCanvas === 'Static'} onChange={() => setStateCanvas('Static')} />
+              <label htmlFor="tab-1" className= "segmented-control__1">
+                <p>Static</p></label>
+              
+              <input type="radio" name="radio2" value="Linear" id="tab-2" checked={stateCanvas === 'Linear'} onChange={() => setStateCanvas('Linear')} />
+              <label htmlFor="tab-2" className= "segmented-control__2">
+                <p>Linear</p></label>
+              
+              <input type="radio" name="radio2" value="Gravity" id="tab-3" checked={stateCanvas === 'Gravity'} onChange={() => setStateCanvas('Gravity')} />
+              <label htmlFor="tab-3" className= "segmented-control__3">
+                <p>Gravity</p></label>
+              
+              <div className="segmented-control__color"></div>
+            </div>
+            
+            <div className="icon">
+              <div className={`icon__settings ${menuOpend ? 'icon__settings--open' : ''}`} onClick={() => setMenuOpend(!menuOpend)}>
+                <IconComponent />
+              </div>
+            </div>
+
+            
+            {menuOpend && (
+              <Menu
+                patternAndColorMode={patternAndColorMode}
+                setPatternAndColorMode={setPatternAndColorMode}
+                color1={colors[patternAndColorMode].color1}
+                onColorChange1={(color) => handleColorChange("color1", color)}
+                color2={colors[patternAndColorMode].color2}
+                onColorChange2={(color) => handleColorChange("color2", color)}
+                pattern={patterns[patternAndColorMode].pattern}
+                onPatternChange={(pattern) => handlePatternChange("pattern", pattern)}
+              />
+            )}
+
+          </div>
         </div>
+        
       </div>
-
-      <h1>mode is {stateCanvas}</h1>
-      <h1>{String(menuOpend)}</h1>
-
-      <div className="h-40 w-40 bg-blue-400 flex items-center justify-center flex-col">
-        Hello
-        <button onClick={() => setTitleColor(0)} className="my-2">RED</button>
-        <button onClick={() => setTitleColor(1)} className="my-2">BLUE</button>
-      </div>
-
     </div>
   );
 }
