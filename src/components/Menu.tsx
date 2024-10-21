@@ -89,9 +89,13 @@ export default function Menu({
           pattern={pattern}
           onPatternChange={onPatternChange}
         />
-        <div className="flex">
+        <div className="colorpickers">
+          <div className="colorpicker1">
             <ColorPicker color={color1} onColorChange={onColorChange1} />
+          </div>
+          <div className="colorpicker2">
             <ColorPicker color={color2} onColorChange={onColorChange2} />
+          </div>
         </div>
       </div>
     </div>
