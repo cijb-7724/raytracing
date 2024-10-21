@@ -77,16 +77,16 @@ export default function App() {
           
           <div className="menu">
             <div className="segmented-control">
-              
-              <input type="radio" name="radio2" value="3" id="tab-1" checked/>
+
+              <input type="radio" name="radio2" value="Static" id="tab-1" checked={stateCanvas === 'Static'} onChange={() => setStateCanvas('Static')} />
               <label htmlFor="tab-1" className= "segmented-control__1">
                 <p>Static</p></label>
               
-              <input type="radio" name="radio2" value="4" id="tab-2" />
+              <input type="radio" name="radio2" value="Linear" id="tab-2" checked={stateCanvas === 'Linear'} onChange={() => setStateCanvas('Linear')} />
               <label htmlFor="tab-2" className= "segmented-control__2">
                 <p>Linear</p></label>
               
-              <input type="radio" name="radio2" value="5" id="tab-3" />
+              <input type="radio" name="radio2" value="Gravity" id="tab-3" checked={stateCanvas === 'Gravity'} onChange={() => setStateCanvas('Gravity')} />
               <label htmlFor="tab-3" className= "segmented-control__3">
                 <p>Gravity</p></label>
               
