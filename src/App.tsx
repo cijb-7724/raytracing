@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
-import React from 'react';
 import { IoSettingsSharp } from 'react-icons/io5';  // Ioniconsから設定のアイコンをインポート
 
 
