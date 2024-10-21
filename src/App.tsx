@@ -7,7 +7,6 @@ type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 export default function App() {
   const [stateCanvas, setStateCanvas] = useState("Static");
   const [menuOpend, setMenuOpend] = useState(false);
-  const [titleColor, setTitleColor] = useState(0);
   
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
   const [colors, setColors] = useState({
@@ -46,7 +45,7 @@ export default function App() {
 
   return (
     <div className="flex w-screen flex-col items-center">
-      <p className={`${titleColor === 0 ? "text-red-600" : "text-blue-600"} font-bold text-5xl bg-yellow-100`}>
+      <p className="text-red-600 font-bold text-5xl bg-yellow-100">
         Study RayTracing
       </p>
       <div className="flex w-full bg-pink-100">
@@ -57,11 +56,12 @@ export default function App() {
         />
 
         <div className="flex flex-col">
-        <div>
-          <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
-          <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
-          <button onClick={() => setStateCanvas("Gravity")} className="mx-2">Gravity</button>
-        </div>
+          <div>
+            <button onClick={() => setStateCanvas("Static")} className="mx-2">Static</button>
+            <button onClick={() => setStateCanvas("Linear")} className="mx-2">Linear</button>
+            <button onClick={() => setStateCanvas("Gravity")} className="mx-2">Gravity</button>
+          </div>
+
           <button onClick={() => setMenuOpend(!menuOpend)} className="mx-2">
             setting
           </button>
@@ -80,16 +80,6 @@ export default function App() {
           )}
         </div>
       </div>
-
-      <h1>mode is {stateCanvas}</h1>
-      <h1>{String(menuOpend)}</h1>
-
-      <div className="h-40 w-40 bg-blue-400 flex items-center justify-center flex-col">
-        Hello
-        <button onClick={() => setTitleColor(0)} className="my-2">RED</button>
-        <button onClick={() => setTitleColor(1)} className="my-2">BLUE</button>
-      </div>
-
     </div>
   );
 }
