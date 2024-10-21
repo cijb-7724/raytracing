@@ -97,13 +97,14 @@ html {
       font-size: 75%;
   }
 }
+
 .container {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
   background: var(--greyLight-1);
+  min-height: 100vh; /* ページ全体の高さを確保 */
 }
 .components {
   width: 75rem;
@@ -113,11 +114,37 @@ html {
   padding: 4rem;
   display: grid;
   grid-template-columns: 17.6rem 19rem 20.4rem;
-  grid-template-rows: repeat(autofit, min-content);
+  grid-template-rows: repeat(auto-fit, min-content);
   grid-column-gap: 5rem;
   grid-row-gap: 2.5rem;
   align-items: center;
+  position: relative; /* コンテンツ全体を中央に */
+  top: 50%;
+  transform: translateY(-50%); /* 上下中央 */
 }
+
+.container_title {
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  background: var(--greyLight-1);
+  margin: 0;
+  padding: 2rem 0;
+}
+.components_title {
+  width: 75rem;
+  height: 6rem;
+  border-radius: 3rem;
+  box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
+  padding: 4rem;
+
+  font-size: 5rem;
+  display: flex; /* Flexboxを使用 */
+  justify-content: center; /* 横方向中央揃え */
+  align-items: center; /* 縦方向中央揃え */
+  color: var(--primary);
+}
+
 .segmented-control {
   grid-column: 2 / 2;
   grid-row: 1 / 2;
