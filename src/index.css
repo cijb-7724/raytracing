@@ -1,11 +1,11 @@
 :root {
   --primary-light: #7ad0f0;
-  --primary: #b5d18a;
+  --primary: #cbed98;
   --primary-dark: #af8cf0;
   --white: #6c87a0;
   --greyLight-1: #272f39;
   --greyLight-2: #0e0c21;
-  --greyDark: #856786;
+  --greyDark: #977698;
 }
 *, *::before, *::after {
   margin: 0;
