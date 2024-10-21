@@ -1,14 +1,4 @@
 :root {
-  --primary-light: #8abdff;
-  --primary: #6d5dfc;
-  --primary-dark: #5b0eeb;
-  --white: #FFFFFF;
-  --greyLight-1: #E4EBF5;
-  --greyLight-2: #c8d0e7;
-  --greyLight-3: #bec8e4;
-  --greyDark: #9baacf;
-}
-:root {
   --primary-light: #7ad0f0;
   --primary: #b5d18a;
   --primary-dark: #af8cf0;
@@ -28,7 +18,7 @@ html {
   overflow-y: scroll;
   background: var(--greyLight-1);
 }
-@media screen and (min-width: 900px) {
+@media (min-width: 900px) {
   html {
       font-size: 75%;
   }
@@ -43,7 +33,7 @@ html {
   padding: 2rem 0;
 }
 .components_title {
-  width: 100rem;
+  width: 90%;
   height: 6rem;
   border-radius: 3rem;
   box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
@@ -64,10 +54,10 @@ html {
   background: var(--greyLight-1);
   min-height: 100vh; /* ページ全体の高さを確保 */
 }
+
 .components {
-  width: 100rem;
-  /* height: 70rem; */
-  height: 100%;
+  width: 90%;
+  height: auto;
   border-radius: 3rem;
   box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
   padding: 4rem;
@@ -76,28 +66,71 @@ html {
   grid-template-rows: repeat(auto-fit, min-content);
   grid-column-gap: 5rem;
   grid-row-gap: 2.5rem;
-  align-items: center;
+  align-items: start;
+  justify-content: center;
   position: relative; /* コンテンツ全体を中央に */
-  top: 50%;
-  transform: translateY(-30%); /* 上下中央 */
+}
+
+@media (min-width: 1400px) {
+  .components_title {
+    width: 1260px;
+  }
+  .components {
+    width: 1260px;
+  }
 }
 
 
-
 .main-canvas {
-  grid-column: 1 / 2;
+  /* grid-column: 1 / 2; */
+  width: 500px;
+  max-width: 95%; /* 横幅の最大値を設定（親要素からはみ出ないように） */
   display: flex;
   justify-content: center; /* 水平方向の中央揃え */
   align-items: center; /* 垂直方向の中央揃え */
   box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
-  height: 100%;
+  margin: 0 auto;
 }
 
 .menu {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  margin-top: 2rem;
+  text-align: center;
   grid-column: 2 / 3;
   display: grid;
-  grid-template-rows: 1fr 2fr 4fr;
+  grid-template-rows: 1fr 1fr 4fr;
 }
+
+@media (max-width: 1150px) {
+  .components {
+    display: flex; /* フレックスボックスに切り替え */
+    flex-direction: column; /* 縦方向に並べる */
+    justify-content: center; /* コンテンツ全体を中央揃え */
+    align-items: center;
+    height: auto; /* 高さをコンテンツに合わせて自動調整 */
+  }
+
+  .main-canvas {
+    order: 1;
+    width: 95%; /* 横幅を100%に */
+  }
+
+  .menu {
+    order: 1;
+    width: 100%; /* 横幅を100%に */
+    height: auto; /* 高さを自動調整 */
+  }
+}
+
+@media (max-width: 500px) {
+  .main-canvas {
+    width: 95%; /* 500px以下の場合は横幅を100%に */
+  }
+}
+
 .segmented-control {
   grid-row: 1 / 2;
   width: 32rem;
@@ -193,7 +226,7 @@ html {
 .setting-pattern-and-color {
   grid-row: 3 / 4;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   align-items: center; /* 縦方向の中央揃え */
   justify-items: center; /* 水平方向の中央揃え */
 }

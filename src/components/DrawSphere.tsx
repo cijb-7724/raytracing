@@ -265,8 +265,12 @@ export default function DrawSphere({
   }, [colors, patterns]);
 
   return (
-      <canvas width="250" height="250" ref={canvasRef}
-      style={{ width: '500px', height: '500px' }}
-      className="main-canvas" ></canvas>
-  );
+    <canvas 
+      width="250" 
+      height="250" 
+      ref={canvasRef}
+      style={{ width: '500px', aspectRatio: '1 / 1' }}
+      className="main-canvas" 
+    ></canvas>
+);
 }
