@@ -2,7 +2,7 @@
 # RayTracing Visualization
 <img src="https://github.com/cijb-7724/raytracing/blob/main/public/preview-image.png" alt="preview" />
 
-<a href="https://cijb-7724.github.io/raytracing/" target="_blank">ここ</a>で遊べます.
+[ここ](https://cijb-7724.github.io/raytracing/)で遊べます.
 
 ## 球の動き方の変更
 - Static: 円周上を動く １周ごとに半径が変わる
