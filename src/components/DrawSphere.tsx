@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { dot, setColor, getColorFromPattern } from "./Utilty";
+import { dot, setColor, getColorFromPattern } from "./Utility";
 
 // 型定義
 type Pattern = {

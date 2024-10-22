@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { hexToRgb, setColor, getShapeFunction } from "./Utilty";
+import { hexToRgb, setColor, getShapeFunction } from "./Utility";
 
 type DrawTilePatternProps = {
   color1: string;
