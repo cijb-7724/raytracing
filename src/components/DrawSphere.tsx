@@ -58,7 +58,6 @@ export default function DrawSphere({
   let center = [0, 0, 0];
   let midC = [0, 0, 0];
   let tx: number, ty: number, tz: number, tyv: number;
-  console.log(motion);
 
   //球の動かし方ごとに異なる初期値の設定
   if (motion === "Static") {
