@@ -13,8 +13,8 @@ export default function App() {
   
   const [patternAndColorMode, setPatternAndColorMode] = useState<PatternMode>("Floor1");
   const [colors, setColors] = useState({
-    Floor1: { color1: "#ffffff", color2: "#ff0000" },
-    Floor2: { color1: "#00C0C0", color2: "#D4B389" },
+    Floor1: { color1: "#00C0C0", color2: "#D4B389" },
+    Floor2: { color1: "#ffffff", color2: "#ff0000" },
     Ceil1: { color1: "#B8C671", color2: "#F7F06D" },
     Ceil2: { color1: "#ACA9ED", color2: "#ffffff" },
   });
@@ -30,8 +30,8 @@ export default function App() {
   };
 
   const [patterns, setPatterns] = useState({
-    Floor1: { pattern: "normal" },
-    Floor2: { pattern: "atcoder2" },
+    Floor1: { pattern: "atcoder2" },
+    Floor2: { pattern: "normal" },
     Ceil1: { pattern: "star"},
     Ceil2: { pattern: "normal"},
   });
