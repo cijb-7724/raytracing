@@ -1,12 +1,18 @@
 :root {
-  --primary-light: #7ad0f0;
+  /*設定ボタンの色*/
+  --primary-light: #8a8a8a;
+  /*選択中のボタンの色*/
   --primary: #cbed98;
-  --primary-dark: #af8cf0;
-  --white: #6c87a0;
-  --greyLight-1: #272f39;
-  --greyLight-2: #0e0c21;
+  /*影の左上色*/
+  --white: #4c4c4c;
+  /*ページ全体の色*/
+  --greyLight-1: #1a1a1a;
+  /*影右下*/
+  --greyLight-2: #0a0a0a;
+  /*未選択のボタンの色*/
   --greyDark: #977698;
 }
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
