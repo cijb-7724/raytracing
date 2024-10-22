@@ -1,6 +1,7 @@
 
 # RayTracing Visualization
 <img src="https://github.com/cijb-7724/raytracing/blob/main/public/preview-image.png" alt="preview" />
+
 [ここ](https://cijb-7724.github.io/raytracing/)で遊べます.
 
 ## 球の動き方の変更
