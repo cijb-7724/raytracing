@@ -41,11 +41,11 @@ type DrawSphereProps = {
 export default function DrawSphere({
   patterns, 
   colors,
-  motion
+  motion,
 }: DrawSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestRef = useRef<number>(0); // アニメーション制御用のリファレンス
-  let cnt = useRef<number>(0); // アニメーションの状態を保持
+  let rSwitch = 0;
   
   const yFloor = 400;
   const yCeil = -yFloor;
@@ -66,7 +66,7 @@ export default function DrawSphere({
     center = [midC[0], midC[1], midC[2] + 600];
   }
   if (motion === "Gravity") {
-  r = 230;    //球の半径
+    r = 230;    //球の半径
     center = [-300, 200, 1600];
     tx = 17;  //x軸(右)方向の速度
     ty = -60; //y軸(下)方向の速度
@@ -80,7 +80,7 @@ export default function DrawSphere({
     ty = 8;   //y軸(下)方向の速度
     tz = -17; //z軸(奥)方向の速度
   }
-  
+
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
     const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
@@ -92,7 +92,7 @@ export default function DrawSphere({
       if (motion === "Linear") updateCenterPositionLinear();
       if (motion === "Gravity") updateCenterPositionGravity();
       render(ctx); // 現在の色で描画
-      cnt.current = (cnt.current+1) % 400;
+      rSwitch = (rSwitch+1) % 400;
       requestRef.current = requestAnimationFrame(animate); // 次のフレームをリクエスト
     }
   };
@@ -101,7 +101,7 @@ export default function DrawSphere({
    * Staticな運動の次の球の中心座標と半径を計算.
    */
   const updateCenterPositionStatic = () => {
-    const switchMode = Math.floor(cnt.current/200) % 2 === 0;
+    const switchMode = Math.floor(rSwitch/200) % 2 === 0;
     r = switchMode ? 500 : 250;
     midC = switchMode ? [0, 0, 1700] : [0, 150, 1700];
 
@@ -170,7 +170,7 @@ export default function DrawSphere({
     }
     //床に摩擦がある
     //床を転がっているときx, z軸方向の速度を減少させる
-    if (y === yFloor - r && ty === 0 && cnt.current % 10 === 0) {
+    if (y === yFloor - r && ty === 0 && rSwitch % 10 === 0) {
       tx *= 0.9;
       tz *= 0.9;
     }
@@ -253,15 +253,8 @@ export default function DrawSphere({
   useEffect(() => {
     requestRef.current = requestAnimationFrame(animate); // アニメーションを開始
     return () => cancelAnimationFrame(requestRef.current); // クリーンアップで停止
-  }, [motion]);
+  }, [motion, patterns, colors]);
 
-  // colorsが変わった時に即座に色を反映
-  useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
-    if (ctx) {
-      render(ctx);
-    }
-  }, [colors, patterns]);
 
   return (
     <canvas 
@@ -271,5 +264,5 @@ export default function DrawSphere({
       style={{ width: '500px', aspectRatio: '1 / 1' }}
       className="main-canvas" 
     ></canvas>
-);
+  );
 }

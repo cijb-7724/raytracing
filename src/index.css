@@ -220,9 +220,9 @@ html {
   box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
   color: var(--primary);
 }
-.icon__settings__open {
+.icon__settings--open {
   box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
-  color: red !important;
+  color: var(--primary) !important;
 }
 .icon__settings:hover {
   color: var(--primary);

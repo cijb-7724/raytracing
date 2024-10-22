@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
-import { IoSettingsSharp } from 'react-icons/io5';  // Ioniconsから設定のアイコンをインポート
-
+import { IoSettingsSharp } from 'react-icons/io5';
 
 
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
@@ -46,15 +45,6 @@ export default function App() {
     }));
   };
 
-
-  const IconComponent = () => {
-    return (
-      <div className="icon__settings">
-        <IoSettingsSharp />
-      </div>
-    );
-  };
-
   return (
     <div>
       <div className="container_title">
@@ -94,7 +84,7 @@ export default function App() {
             
             <div className="icon">
               <div className={`icon__settings ${menuOpend ? 'icon__settings--open' : ''}`} onClick={() => setMenuOpend(!menuOpend)}>
-                <IconComponent />
+                <IoSettingsSharp />
               </div>
             </div>
 
