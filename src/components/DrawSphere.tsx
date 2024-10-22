@@ -61,6 +61,7 @@ export default function DrawSphere({
 }: DrawSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestRef = useRef<number>(0); // アニメーション制御用のリファレンス
+  const previousMotionRef = useRef<string>("Static"); // 前の motion を保持
   let rSwitch = 0;
 
   const yFloor = 400;
@@ -75,27 +76,30 @@ export default function DrawSphere({
   let midC = [0, 0, 0];
   let tx: number, ty: number, tz: number, tyv: number;
 
-  //球の動かし方ごとに異なる初期値の設定
-  if (motion === "Static") {
-    r = 500;
-    midC = [0, 0, 1700];
-    center = [midC[0], midC[1], midC[2] + 600];
-  }
-  if (motion === "Gravity") {
-    r = 230;    //球の半径
-    center = [-300, 200, 1600];
-    tx = 17;  //x軸(右)方向の速度
-    ty = -60; //y軸(下)方向の速度
-    tz = 32;  //z軸(奥)方向の速度
-    tyv = 3.2;  //y軸方向の加速度
-  }
-  if (motion === "Linear") {
-    r = 250;  //球の半径
-    center = [-300, 100, 1600];
-    tx = 13;  //x軸(右)方向の速度
-    ty = 8;   //y軸(下)方向の速度
-    tz = -17; //z軸(奥)方向の速度
-  }
+  const setInitialValues = () => {
+    //球の動かし方ごとに異なる初期値の設定
+    if (globalInfo.motion === "Static") {
+      r = 500;
+      midC = [0, 0, 1700];
+      center = [midC[0], midC[1], midC[2] + 600];
+    }
+    if (globalInfo.motion === "Gravity") {
+      r = 230;    //球の半径
+      center = [-300, 200, 1600];
+      tx = 17;  //x軸(右)方向の速度
+      ty = -60; //y軸(下)方向の速度
+      tz = 32;  //z軸(奥)方向の速度
+      tyv = 3.2;  //y軸方向の加速度
+    }
+    if (globalInfo.motion === "Linear") {
+      r = 250;  //球の半径
+      center = [-300, 100, 1600];
+      tx = 13;  //x軸(右)方向の速度
+      ty = 8;   //y軸(下)方向の速度
+      tz = -17; //z軸(奥)方向の速度
+    }
+  };
+  setInitialValues();
 
   // アニメーション関数（初期化し、常に動作し続ける）
   const animate = () => {
@@ -264,7 +268,6 @@ export default function DrawSphere({
     ctx.putImageData(image, 0, 0);
   };
 
-
   // 初回マウント時にアニメーションを開始
   useEffect(() => {
     Object.assign(globalInfo, { motion, patterns, colors });
@@ -278,10 +281,19 @@ export default function DrawSphere({
   }, [motion, patterns, colors]);
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
-    if (ctx) {
-      render(ctx);
+    Object.assign(globalInfo, { motion, patterns, colors });
+    if (previousMotionRef.current !== motion) {
+      // アニメーションをリセットする
+      cancelAnimationFrame(requestRef.current);
+      setInitialValues(); // 初期値設定
+      requestRef.current = requestAnimationFrame(animate); // 新しいアニメーションを開始
+      previousMotionRef.current = motion;
     }
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current); // クリーンアップで停止
+      }
+    };
   }, [motion]);
 
   return (
