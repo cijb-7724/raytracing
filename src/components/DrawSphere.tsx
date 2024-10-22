@@ -31,6 +31,22 @@ type DrawSphereProps = {
   motion: string;
 };
 
+let globalInfo: DrawSphereProps = {
+  patterns: {
+    Floor1: { pattern: "normal" },
+    Floor2: { pattern: "normal" },
+    Ceil1: { pattern: "normal" },
+    Ceil2: { pattern: "star" },
+  },
+  colors: {
+    Floor1: { color1: "#ffffff", color2: "#000000" }, // 白と黒
+    Floor2: { color1: "#ff0000", color2: "#00ff00" }, // 赤と緑
+    Ceil1: { color1: "#0000ff", color2: "#ffff00" }, // 青と黄色
+    Ceil2: { color1: "#ff00ff", color2: "#00ffff" }, // 紫と水色
+  },
+  motion: "Static",
+};
+
 /**
  * 
  * @param patterns - 各床や天井の模様.
@@ -46,7 +62,7 @@ export default function DrawSphere({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestRef = useRef<number>(0); // アニメーション制御用のリファレンス
   let rSwitch = 0;
-  
+
   const yFloor = 400;
   const yCeil = -yFloor;
   const zsc = 230;
@@ -210,9 +226,9 @@ export default function DrawSphere({
       if (c1*c1 - c2 < 0) {
         //直接床/天井にぶつかる
         let t = yFloor / Esee[1];
-        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t * Esee[0], t * Esee[2]));
+        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("F", globalInfo.colors, globalInfo.patterns, t * Esee[0], t * Esee[2]));
         t = yCeil / Esee[1];
-        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t * Esee[0], t * Esee[2]));
+        if (t > 0) setColor(pixels, width, i, j, getColorFromPattern("C", globalInfo.colors, globalInfo.patterns, t * Esee[0], t * Esee[2]));
       } else {
         //球で反射
         let isFloor = false
@@ -233,15 +249,15 @@ export default function DrawSphere({
         }
 
         let s = (yFloor-t*Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("F", globalInfo.colors, globalInfo.patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] < 0) isFloor = true;
 
         s = (yCeil-t*Esee[1]) / Vdsee[1];
-        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
+        if (s > 0) setColor(pixels, width, i, j, getColorFromPattern("C", globalInfo.colors, globalInfo.patterns, t*Esee[0] + s*Vdsee[0], t*Esee[2] + s*Vdsee[2], true));
         else if (s * Vdsee[1] > 0) isCeil = true;
 
-        if (isFloor) setColor(pixels, width, i, j, getColorFromPattern("F", colors, patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
-        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", colors, patterns, yCeil / Esee[1] * Esee[0], yCeil / Esee[1] * Esee[2]));
+        if (isFloor) setColor(pixels, width, i, j, getColorFromPattern("F", globalInfo.colors, globalInfo.patterns, yFloor / Esee[1] * Esee[0], yFloor / Esee[1] * Esee[2]));
+        if (isCeil) setColor(pixels, width, i, j, getColorFromPattern("C", globalInfo.colors, globalInfo.patterns, yCeil / Esee[1] * Esee[0], yCeil / Esee[1] * Esee[2]));
       }
     }
 
@@ -251,10 +267,22 @@ export default function DrawSphere({
 
   // 初回マウント時にアニメーションを開始
   useEffect(() => {
+    Object.assign(globalInfo, { motion, patterns, colors });
     requestRef.current = requestAnimationFrame(animate); // アニメーションを開始
     return () => cancelAnimationFrame(requestRef.current); // クリーンアップで停止
+  }, []);
+
+  // colorsが変わった時に即座に色を反映
+  useEffect(() => {
+    Object.assign(globalInfo, { motion, patterns, colors });
   }, [motion, patterns, colors]);
 
+  useEffect(() => {
+    const ctx = canvasRef.current?.getContext("2d", { willReadFrequently: true });
+    if (ctx) {
+      render(ctx);
+    }
+  }, [motion]);
 
   return (
     <canvas 
