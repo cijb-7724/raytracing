@@ -26,7 +26,7 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
       onClose();
     }
   };
-  const width = 100;
+  const patterns = ["normal", "star", "heart", "circle", "diamond", "clover", "spade", "atcoder1", "atcoder2", "atcoder3", "atcoder4"];
   return (
     <div
       id="modal-overlay"
@@ -39,132 +39,24 @@ export default function Modal({ color1, color2, onClose, onPatternChange}: Modal
         >
           &times;
         </button>
-
         <div className="grid grid-cols-3 gap-4">
-
-          {/* normal tile pattern */}
-          <div onClick={() => {
-            onClose();
-            onPatternChange("normal");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="normal"
-              width={width}
-            />
-          </div>
-          
-          <div onClick={() => {
-            onClose();
-            onPatternChange("star");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="star"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("heart");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="heart"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("circle");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="circle"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("diamond");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="diamond"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("clover");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="clover"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("spade");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="spade"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("atcoder1");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="atcoder1"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("atcoder2");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="atcoder2"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("atcoder3");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="atcoder3"
-              width={width}
-            />
-          </div>
-          <div onClick={() => {
-            onClose();
-            onPatternChange("atcoder4");
-          }} id="buttonInModal">
-            <DrawTilePattern
-              color1={color1}
-              color2={color2}
-              pattern="atcoder4"
-              width={width}
-            />
-          </div>
+          {patterns.map((pattern) => (
+            <div
+              key={pattern}
+              onClick={() => {
+                onClose();
+                onPatternChange(pattern);
+              }}
+              id="buttonInModal"
+            >
+              <DrawTilePattern
+                color1={color1}
+                color2={color2}
+                pattern={pattern}
+                width={100}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

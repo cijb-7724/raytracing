@@ -3,7 +3,6 @@ import Menu from "./components/Menu";
 import Canvas from "./components/Canvas";
 import { IoSettingsSharp } from 'react-icons/io5';
 
-
 type PatternMode = "Floor1" | "Floor2" | "Ceil1" | "Ceil2";
 
 export default function App() {
@@ -87,7 +86,6 @@ export default function App() {
                 <IoSettingsSharp />
               </div>
             </div>
-
             
             {menuOpend && (
               <Menu
@@ -104,7 +102,6 @@ export default function App() {
 
           </div>
         </div>
-        
       </div>
     </div>
   );
