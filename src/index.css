@@ -44,7 +44,6 @@ html {
   border-radius: 3rem;
   box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
   padding: 4rem;
-
   font-size: 5rem;
   display: flex; /* Flexboxを使用 */
   justify-content: center; /* 横方向中央揃え */
@@ -58,7 +57,8 @@ html {
   align-items: center;
   font-family: 'Poppins', sans-serif;
   background: var(--greyLight-1);
-  min-height: 100vh; /* ページ全体の高さを確保 */
+  min-height: calc(90vh - 10rem); /* container_title の高さ分を差し引く */
+  padding-top: 2rem; /* 少し上部にスペースを追加 */
 }
 
 .components {
