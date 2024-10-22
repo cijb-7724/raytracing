@@ -323,6 +323,18 @@ html {
 }
 
 
+/*カラーピッカー*/
+.overlay-input {
+  position: relative;
+  top: -5rem;
+  left: 0;
+  width: 100%;
+  /* height: 10000%; */
+  height: 5rem;
+  opacity: 0;
+  z-index: 1;     /* 上に重ねるための設定 */
+}
+
 /* モーダルオーバーレイ（背景） */
 .modal-overlay {
   position: fixed;

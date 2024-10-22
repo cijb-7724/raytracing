@@ -40,8 +40,8 @@ export default function ColorPicker({ color, onColorChange }: ColorPickerProps) 
         type="color"
         ref={inputRef}
         value={color}
+        className="overlay-input"
         onChange={handleChange}
-        className="hidden" // input を隠す
       />
       
     </div>
